@@ -1,26 +1,15 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "cinemasbot",
+  "version": "0.0.1",
+  "description": "Find movie theaters and show times in your city",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "author": "Nicholas Ruggeri",
   "dependencies": {
-    "ejs": "2.3.3",
-    "express": "4.13.3"
-  },
-  "engines": {
-    "node": "0.12.7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+    "express": "latest",
+    "request": "latest",
+    "cheerio": "latest",
+    "body-parser": "1.13.1",
+    "underscore": "latest",
+    "universal-analytics": "latest"
+  }
 }
