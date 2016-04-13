@@ -49,6 +49,10 @@ app.post('/', function (req, res) {
                         events.sendTextMessage(token, sender, "Hello :)");
                         break;
 
+                    case 'help':
+                    case 'aiuto':
+                        events.sendTextMessage(token, sender, "Help command");
+
                     default:
                         events.sendTextMessage(token, sender, "Ehy, send your location.");
 
@@ -56,7 +60,7 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                var lat = event.message.attachments[0].payload.coordinates.lat,
+                let lat = event.message.attachments[0].payload.coordinates.lat,
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
@@ -64,7 +68,7 @@ app.post('/', function (req, res) {
                 events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
-                    services.getCinema(coords, function(list_theaters){
+                    services.getCinema(coords, (list_theaters) => {
                         console.log('CALLBACK')
                         events.sendGenericMessage(token, sender, list_theaters);
                     });
