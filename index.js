@@ -39,7 +39,7 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
-                let user_text = event.message.text.toLowerCase();
+                var user_text = event.message.text.toLowerCase();
 
                 switch(user_text) {
 
@@ -47,11 +47,6 @@ app.post('/', function (req, res) {
                     case 'hi':
                     case 'ciao':
                         events.sendTextMessage(token, sender, "Hello :)");
-                        break;
-
-                    case 'help':
-                    case 'aiuto':
-                        events.sendTextMessage(token, sender, "Help command");
                         break;
 
                     default:
@@ -78,7 +73,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            let text = JSON.stringify(event.postback);
+            var text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
