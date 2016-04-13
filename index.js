@@ -12,7 +12,7 @@ var app = express();
 // Node.js Example
 app.get('/webhook', function (req, res) {
 
-    if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot">) {
+    if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot") {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Error, wrong validation token');
