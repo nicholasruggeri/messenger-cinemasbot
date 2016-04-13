@@ -53,7 +53,7 @@ module.exports = {
         data = _u.flatten(data);
 
         for (var i=0; i<data.length; i++) {
-            console.log(_u.data[i])
+            console.log(data[i])
             messageData.attachment.payload.elements.push({
                 "title": data[i],
             })
