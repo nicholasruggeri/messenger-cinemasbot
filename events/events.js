@@ -55,8 +55,7 @@ module.exports = {
         for (var i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
-                "title": [i+1]+'.',
-                "image_url": "http://valecenter.it/wp-content/uploads/2016/03/kung-fu-panda-3-poster-full.jpg",
+                "title": 'Theater '+[i+1],
                 "buttons": [{
                     "type": "postback",
                     "title": data[i],

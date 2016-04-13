@@ -57,11 +57,11 @@ app.post('/', function (req, res) {
                     coords = lat + ',' + long;
 
                 console.log('MESSAGGIO NON DI TESTO')
+                events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
                 services.getCinema(coords, function(list_theaters){
                     console.log('CALLBACK')
                     events.sendGenericMessage(token, sender, list_theaters);
                 });
-                // events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
 
             }
         }
