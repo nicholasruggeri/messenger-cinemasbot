@@ -115,11 +115,12 @@ app.post('/', function (req, res) {
             }
         }
 
-        // console.log(event.message.attachments[0].payload.coodinates)
+        if (event.message.attachments[0].payload.coodinates) {
 
-        // if (event.message.attachments[0].payload.coodinates) {
+            console.log(event.message.attachments[0].payload.coodinates)
+            console.log('ok, position')
 
-        // }
+        }
 
         if (event.postback) {
             text = JSON.stringify(event.postback);
