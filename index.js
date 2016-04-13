@@ -38,6 +38,12 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
+                if (event.message.text == "hello" || event.message.text == "hi") {
+                    events.sendTextMessage(token, sender, "Hello :)");
+                } else {
+                    events.sendTextMessage(token, sender, "Ehy, send your location.");
+                }
+
                 // console.log('MESSAGGIO DI TESTO')
 
                 // var text = event.message.text;
@@ -47,8 +53,6 @@ app.post('/', function (req, res) {
                 // } else {
                 //     events.sendTextMessage(token, sender, "Theater not found, sorry...");
                 // }
-
-                events.sendTextMessage(token, sender, "Ehy, send your location.");
 
             } else if (event.message.attachments) {
 
