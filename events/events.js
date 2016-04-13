@@ -55,11 +55,12 @@ module.exports = {
         for (var i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
-                "title": data[i],
+                // "title": data[i],
                 "buttons": [{
                     "type": "postback",
-                    "title": "Theater"+i,
+                    "title": data[i],
                     "payload": "Payload for first element in a generic bubble",
+                    "image_url": "http://valecenter.it/wp-content/uploads/2016/03/kung-fu-panda-3-poster-full.jpg"
                 }],
             })
         }
