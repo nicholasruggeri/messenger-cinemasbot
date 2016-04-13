@@ -10,12 +10,16 @@ var express = require('express'),
 var app = express();
 
 // Node.js Example
-app.get('/', function (req, res) {
-  if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot">) {
-    res.send(req.query['hub.challenge']);
-  } else {
-    res.send('Error, wrong validation token');
-  }
+app.get('/webhook', function (req, res) {
+
+    res.send(req.query['hub.verify_token'])
+
+    // if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot">) {
+    //     res.send(req.query['hub.challenge']);
+    // } else {
+    //     res.send('Error, wrong validation token');
+    // }
+
 });
 
 
