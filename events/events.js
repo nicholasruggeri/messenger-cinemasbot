@@ -56,6 +56,11 @@ module.exports = {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
                 "title": data[i],
+                "buttons": [{
+                    "type": "postback",
+                    "title": "Theater"+i,
+                    "payload": "Payload for first element in a generic bubble",
+                }],
             })
         }
 
