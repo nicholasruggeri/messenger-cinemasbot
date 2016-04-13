@@ -49,7 +49,8 @@ app.post('/', function (req, res) {
                 }
 
             } else if (event.message.attachments) {
-                console.log(util.inspect(event.message.attachments, {showHidden: true, depth: 5}));
+                console.log('lat', event.message.attachments[0].payload.coordinates.lat);
+                console.log('long', event.message.attachments[0].payload.coordinates.long);
                 console.log('MESSAGGIO NON DI TESTO')
                 // services.getCinema(user_location, function(){
                 //     console.log('CALLBACK')
