@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-    console.log('res', res)
+    console.log('req', req)
 
     messaging_events = req.body.entry[0].messaging;
     for (i = 0; i < messaging_events.length; i++) {
