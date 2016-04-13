@@ -2,16 +2,30 @@ var request = require('request');
 
 module.exports = {
 
-    sendMessage: function(token, qs){
+    sendTextMessage: function(sender, text) {
+        var messageData = {
+            text: text
+        }
         request({
-            url: 'https://api.telegram.org/' + token + '/sendMessage',
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {
+                access_token: token
+            },
             method: 'POST',
-            qs: qs
-        }, function (err, response, body) {
-            if (err) {
-                console.log("ERROR SENDMESSAGE", err); return;
+            json: {
+                recipient: {
+                    id: sender
+                },
+                message: messageData,
+            }
+        }, function(error, response, body) {
+            if (error) {
+                console.log('Error sending message: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
             }
         });
     }
+
 
 }
