@@ -39,7 +39,7 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
-                let user_text = event.message.text.toLowerCase();
+                var user_text = event.message.text.toLowerCase();
 
                 switch(user_text) {
 
@@ -61,7 +61,7 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                let lat = event.message.attachments[0].payload.coordinates.lat,
+                var lat = event.message.attachments[0].payload.coordinates.lat,
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
@@ -78,7 +78,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            let text = JSON.stringify(event.postback);
+            var text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
