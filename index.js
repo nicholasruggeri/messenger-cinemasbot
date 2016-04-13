@@ -63,11 +63,11 @@ app.post('/', function (req, res) {
                     events.sendGenericMessage(token, sender, list_theaters);
                 });
 
-            } else if (event.postback) {
-                console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-                text = JSON.stringify(event.postback);
-                sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
             }
+        } else if (event.postback) {
+            console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
+            text = JSON.stringify(event.postback);
+            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
         }
     }
 
