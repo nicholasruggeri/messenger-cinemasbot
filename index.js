@@ -4,7 +4,8 @@ var util        = require('util'),
     bodyParser  = require('body-parser'),
     request     = require('request');
 
-var events = require('./events/events');
+var events = require('./events/events'),
+    services = require('./services/services');
 
 var app = express(),
     token = process.env.FB_TOKEN;
@@ -31,7 +32,7 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        console.log(util.inspect(event, {showHidden: true, depth: 5}));
+        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
 
@@ -48,9 +49,13 @@ app.post('/', function (req, res) {
                 }
 
             } else if (event.message.attachments) {
+                console.log(event.message.attachments)
                 console.log('MESSAGGIO NON DI TESTO')
-                events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
-                events.sendGenericMessage(token, sender);
+                services.getCinema(user_location, function(){
+                    console.log('CALLBACK')
+                });
+                // events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
+                // events.sendGenericMessage(token, sender);
             }
         }
     }
