@@ -7,23 +7,18 @@ var express = require('express'),
     _ = require('underscore'),
     ua = require('universal-analytics');
 
-// // Dipendenze
-// var helpers = require('./helpers/helpers'),
-//     services = require('./services/services'),
-//     events = require('./events/events'),
-//     commands = require('./commands');
+var app = express();
 
-var app = express(),
-    token = process.env.TELEGRAM_TOKEN,
-    visitor = ua(process.env.UA_TOKEN);
-
-var qs = {}; // object containing the query string that will be serialized
-
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+// Node.js Example
 app.get('/', function (req, res) {
-    res.send('1729453501')
+  if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot">) {
+    res.send(req.query['hub.challenge']);
+  } else {
+    res.send('Error, wrong validation token');
+  }
 });
+
+
 
 app.listen(process.env.PORT);
 console.log('Magic happens on port ' + process.env.PORT);
