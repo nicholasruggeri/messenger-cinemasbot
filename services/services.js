@@ -20,7 +20,7 @@ module.exports = {
                     element = name;
                     list_theaters.push([element]);
                 });
-                console.log(list_theaters)
+                // console.log(list_theaters)
                 if (typeof callback == "function")
                     return callback(list_theaters);
                 else
