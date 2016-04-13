@@ -97,42 +97,44 @@ app.post('/', function (req, res) {
 
     var messaging_events = req.body.entry[0].messaging;
 
-    for (var i = 0; i < messaging_events.length; i++) {
+    console.log('me', messaging_events)
 
-        var event = req.body.entry[0].messaging[i];
-        var sender = event.sender.id;
+    // for (var i = 0; i < messaging_events.length; i++) {
 
-        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
+    //     var event = req.body.entry[0].messaging[i];
+    //     var sender = event.sender.id;
 
-        if (event.message && event.message.text) {
-            var text = event.message.text;
-            // Handle a text message from this sender
-            if (text === 'The Space Silea') {
-                sendGenericMessage(sender);
-                continue;
-            } else {
-                sendTextMessage(sender, "Theater not found, sorry...");
-            }
-        } else {
-            sendGenericMessage(sender);
-        }
+    //     // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
-        // if (event.message.attachments[0].payload.coordinates) {
+    //     if (event.message && event.message.text) {
+    //         var text = event.message.text;
+    //         // Handle a text message from this sender
+    //         if (text === 'The Space Silea') {
+    //             sendGenericMessage(sender);
+    //             continue;
+    //         } else {
+    //             sendTextMessage(sender, "Theater not found, sorry...");
+    //         }
+    //     } else {
+    //         // sendGenericMessage(sender);
+    //     }
 
-        //     console.log(event.message.attachments[0].payload.coordinates)
-        //     console.log('ok, position')
+    //     // if (event.message.attachments[0].payload.coordinates) {
 
-        // } else {
-        //     console.log('not location')
-        // }
+    //     //     console.log(event.message.attachments[0].payload.coordinates)
+    //     //     console.log('ok, position')
 
-        // if (event.postback) {
-        //     text = JSON.stringify(event.postback);
-        //     sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
-        //     continue;
-        // }
+    //     // } else {
+    //     //     console.log('not location')
+    //     // }
 
-    }
+    //     // if (event.postback) {
+    //     //     text = JSON.stringify(event.postback);
+    //     //     sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
+    //     //     continue;
+    //     // }
+
+    // }
 
     res.sendStatus(200);
 
