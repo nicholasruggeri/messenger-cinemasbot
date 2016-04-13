@@ -29,7 +29,7 @@ let user_location;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.post('/', function (req, res) {
+app.get('/', function (req, res) {
 
     // Log the request body.
 
