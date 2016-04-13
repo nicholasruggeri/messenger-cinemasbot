@@ -2,7 +2,9 @@
 
 // Dipendenze terze parti
 var express = require('express'),
+    bodyParser = require('body-parser'),
     request = require('request');
+
 
 var app = express();
 
@@ -29,7 +31,9 @@ function sendTextMessage(sender, text) {
   });
 }
 
-// Node.js Example
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/', function (req, res) {
 
     if (req.query['hub.verify_token'] === "majora-2001") {
