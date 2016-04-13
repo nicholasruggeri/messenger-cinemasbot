@@ -2,7 +2,7 @@ var request = require('request');
 
 module.exports = {
 
-    sendTextMessage: function(sender, text) {
+    sendTextMessage: function(token, sender, text) {
         var messageData = {
             text: text
         }

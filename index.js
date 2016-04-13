@@ -94,7 +94,7 @@ app.post('/', function (req, res) {
                 sendGenericMessage(sender);
                 continue;
             } else {
-                events.sendTextMessage(sender, "Theater not found, sorry...");
+                events.sendTextMessage(token, sender, "Theater not found, sorry...");
             }
         }
     }
