@@ -49,12 +49,13 @@ app.post('/', function (req, res) {
                 }
 
             } else if (event.message.attachments) {
-                console.log('lat', event.message.attachments[0].payload.coordinates.lat);
-                console.log('long', event.message.attachments[0].payload.coordinates.long);
+                var lat = event.message.attachments[0].payload.coordinates.lat,
+                    long = event.message.attachments[0].payload.coordinates.long,
+                    coords = lat + ',' + long;
                 console.log('MESSAGGIO NON DI TESTO')
-                // services.getCinema(user_location, function(){
-                //     console.log('CALLBACK')
-                // });
+                services.getCinema(coords, function(){
+                    console.log('CALLBACK')
+                });
                 // events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
                 // events.sendGenericMessage(token, sender);
             }
