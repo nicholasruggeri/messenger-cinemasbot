@@ -56,11 +56,11 @@ module.exports = {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
                 // "title": data[i],
+                "image_url": "http://valecenter.it/wp-content/uploads/2016/03/kung-fu-panda-3-poster-full.jpg",
                 "buttons": [{
                     "type": "postback",
                     "title": data[i],
-                    "payload": "Payload for first element in a generic bubble",
-                    "image_url": "http://valecenter.it/wp-content/uploads/2016/03/kung-fu-panda-3-poster-full.jpg"
+                    "payload": "Payload for first element in a generic bubble"
                 }],
             })
         }
