@@ -47,6 +47,12 @@ module.exports = {
             }
         };
 
+        messageData.attachment.payload.elements.push({
+            "title": "Il Cacciatore e la Regina di Ghiaccio",
+            "subtitle": "17:30‎ - ‎20:00‎ - ‎22:00‎",
+            "image_url": "http://www.primissima.it/images/uploads/il_cacciatore_e_la_regina_poster.jpg",
+        })
+
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: {
