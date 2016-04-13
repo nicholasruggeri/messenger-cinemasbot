@@ -1,4 +1,3 @@
-"use strict";
 
 // Dipendenze terze parti
 var express = require('express'),
@@ -11,7 +10,7 @@ var app = express();
 var token = "CAAQX4MNgOq8BALoqRGUGDu3QJR18jiU0musa0HQTngkCP0JPgwpg3FWXxJ7RUDar5AnLViQHW345cwJawwEgztCvATnIoNLgVEaZBbIdxXP2ZA6ZBl9tlnlFZBZCLRJmaJavDDB6ckklxnukdFh7rahjQMhORa8YGR9L52bE4vfpWkL7LJwiHW5uL69U6EnEZD";
 
 function sendTextMessage(sender, text) {
-  messageData = {
+  var messageData = {
     text:text
   }
   request({
