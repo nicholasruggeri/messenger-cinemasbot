@@ -100,7 +100,7 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        console.log('event', event)
+        console.dir('event', event)
 
         if (event.message && event.message.text) {
             var text = event.message.text;
