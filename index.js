@@ -102,7 +102,7 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        console.log(util.inspect(event, {showHidden: true, depth: 5}));
+        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message && event.message.text) {
             var text = event.message.text;
@@ -115,11 +115,13 @@ app.post('/', function (req, res) {
             }
         }
 
-        if (event.message.attachments[0].payload.coodinates) {
+        if (event.message.attachments[0].payload.coordinates) {
 
-            console.log(event.message.attachments[0].payload.coodinates)
+            console.log(event.message.attachments[0].payload.coordinates)
             console.log('ok, position')
 
+        } else {
+            console.log('not location')
         }
 
         if (event.postback) {
