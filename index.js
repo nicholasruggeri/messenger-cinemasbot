@@ -12,10 +12,9 @@ var app = express();
 // Node.js Example
 app.get('/', function (req, res) {
 
-    console.log('req', req)
     console.log('res', res)
 
-    if (req.query['hub.verify_token'] === "majora-2001-messenger-cinemasbot") {
+    if (req.query['hub.verify_token'] === "majora-2001") {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Error, wrong validation token');
