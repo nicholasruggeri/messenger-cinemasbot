@@ -51,9 +51,9 @@ app.post('/', function (req, res) {
             } else if (event.message.attachments) {
                 console.log(event.message.attachments)
                 console.log('MESSAGGIO NON DI TESTO')
-                services.getCinema(user_location, function(){
-                    console.log('CALLBACK')
-                });
+                // services.getCinema(user_location, function(){
+                //     console.log('CALLBACK')
+                // });
                 // events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
                 // events.sendGenericMessage(token, sender);
             }
