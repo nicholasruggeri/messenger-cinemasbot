@@ -101,7 +101,7 @@ app.post('/', function (req, res) {
 
     // for (var i = 0; i < messaging_events.length; i++) {
 
-        var event = req.body.entry[0].messaging[i];
+        var event = req.body.entry[0].messaging[0];
         var sender = event.sender.id;
 
         // console.log(util.inspect(event, {showHidden: true, depth: 5}));
