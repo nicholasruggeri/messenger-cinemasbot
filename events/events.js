@@ -59,7 +59,7 @@ module.exports = {
                 "buttons": [{
                     "type": "postback",
                     "title": data[i],
-                    "payload": "Payload for first element in a generic bubble"
+                    "payload": "Payload" + [i]
                 }],
             })
         }
