@@ -1,4 +1,6 @@
 
+var util = require('util');
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     request = require('request');
@@ -100,7 +102,7 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        console.log('event', event.message.attachment)
+        console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message && event.message.text) {
             var text = event.message.text;
