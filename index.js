@@ -113,22 +113,24 @@ app.post('/', function (req, res) {
             } else {
                 sendTextMessage(sender, "Theater not found, sorry...");
             }
-        }
-
-        if (event.message.attachments[0].payload.coordinates) {
-
-            console.log(event.message.attachments[0].payload.coordinates)
-            console.log('ok, position')
-
         } else {
-            console.log('not location')
+            sendGenericMessage(sender);
         }
 
-        if (event.postback) {
-            text = JSON.stringify(event.postback);
-            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
-            continue;
-        }
+        // if (event.message.attachments[0].payload.coordinates) {
+
+        //     console.log(event.message.attachments[0].payload.coordinates)
+        //     console.log('ok, position')
+
+        // } else {
+        //     console.log('not location')
+        // }
+
+        // if (event.postback) {
+        //     text = JSON.stringify(event.postback);
+        //     sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
+        //     continue;
+        // }
 
     }
 
