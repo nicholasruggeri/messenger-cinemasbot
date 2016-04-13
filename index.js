@@ -33,14 +33,22 @@ app.post('/', function (req, res) {
 
         console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
-        if (event.message && event.message.text) {
-            var text = event.message.text;
-            // Handle a text message from this sender
-            if (text === 'The Space Silea') {
-                events.sendGenericMessage(token, sender);
-                continue;
-            } else {
-                events.sendTextMessage(token, sender, "Theater not found, sorry...");
+        if (event.message) {
+
+            if (event.message.text){
+
+                console.log('MESSAGGIO DI TESTO')
+
+                var text = event.message.text;
+                if (text === 'The Space Silea') {
+                    events.sendGenericMessage(token, sender);
+                    continue;
+                } else {
+                    events.sendTextMessage(token, sender, "Theater not found, sorry...");
+                }
+
+            } else if (event.message.attachments) {
+                console.log('MESSAGGIO NON DI TESTO')
             }
         }
     }
