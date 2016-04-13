@@ -10,7 +10,7 @@ var express = require('express'),
 var app = express();
 
 // Node.js Example
-app.get('/webhook', function (req, res) {
+app.get('/', function (req, res) {
 
     console.log('req', req)
     console.log('res', res)
