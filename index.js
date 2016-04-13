@@ -1,4 +1,3 @@
-"use strict";
 
 var util        = require('util'),
     express     = require('express'),
@@ -33,13 +32,13 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
+        console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
 
             if (event.message.text){
 
-                let user_text = event.message.text.toLowerCase();
+                var user_text = event.message.text.toLowerCase();
 
                 if (user_text == "hello" || user_text == "hi") {
                     events.sendTextMessage(token, sender, "Hello :)");
@@ -66,7 +65,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            let text = JSON.stringify(event.postback);
+            var text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
