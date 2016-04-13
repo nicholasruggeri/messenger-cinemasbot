@@ -38,15 +38,17 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
-                console.log('MESSAGGIO DI TESTO')
+                // console.log('MESSAGGIO DI TESTO')
 
-                var text = event.message.text;
-                if (text === 'The Space Silea') {
-                    events.sendGenericMessage(token, sender);
-                    continue;
-                } else {
-                    events.sendTextMessage(token, sender, "Theater not found, sorry...");
-                }
+                // var text = event.message.text;
+                // if (text === 'The Space Silea') {
+                //     events.sendGenericMessage(token, sender);
+                //     continue;
+                // } else {
+                //     events.sendTextMessage(token, sender, "Theater not found, sorry...");
+                // }
+
+                events.sendTextMessage(token, sender, "Ehy, send your location.");
 
             } else if (event.message.attachments) {
 
