@@ -115,7 +115,7 @@ app.post('/', function (req, res) {
             }
         }
 
-        if (event.message.attachments[0].payload.coordinates) {
+        if (event.message.attachments[0]) {
 
             console.log(event.message.attachments[0].payload.coordinates)
             console.log('ok, position')
