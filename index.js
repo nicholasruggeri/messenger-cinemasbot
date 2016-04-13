@@ -34,27 +34,29 @@ function sendGenericMessage(sender) {
       "payload": {
         "template_type": "generic",
         "elements": [{
-          "title": "First card",
-          "subtitle": "Element #1 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-          "buttons": [{
-            "type": "web_url",
-            "url": "https://www.messenger.com/",
-            "title": "Web url"
-          }, {
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
-          }],
+          "title": "Batman VS Superman",
+          "subtitle": "17:30 - 19:30 - 21:30 - 23:00",
+          "image_url": "https://s.yimg.com/ny/api/res/1.2/gyFqKB85n5rFl4e1SpvJDg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAwO2lsPXBsYW5l/http://l.yimg.com/cd/resizer/2.0/FIT_TO_WIDTH-w1280/08d16d4567f303c46f16a66041eca2f620352f4b.jpg",
+          // "buttons": [
+          //     {
+          //       "type": "web_url",
+          //       "url": "https://www.messenger.com/",
+          //       "title": "Web url"
+          //     }, {
+          //       "type": "postback",
+          //       "title": "Postback",
+          //       "payload": "Payload for first element in a generic bubble",
+          //     }
+          // ],
         },{
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-          "buttons": [{
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
+          "title": "Kung Fu Panda 3",
+          "subtitle": "17:00 - 19:00 - 21:00",
+          "image_url": "http://valecenter.it/wp-content/uploads/2016/03/kung-fu-panda-3-poster-full.jpg",
+          // "buttons": [{
+          //   "type": "postback",
+          //   "title": "Postback",
+          //   "payload": "Payload for second element in a generic bubble",
+          // }],
         }]
       }
     }
@@ -103,11 +105,17 @@ app.post('/', function (req, res) {
         if (event.message && event.message.text) {
             var text = event.message.text;
             // Handle a text message from this sender
-            // sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-            if (text === 'Generic') {
+            if (text === 'The Space Silea') {
                 sendGenericMessage(sender);
                 continue;
+            } else {
+                sendTextMessage(sender, "Theater not found, sorry...");
             }
+        }
+        if (event.postback) {
+            text = JSON.stringify(event.postback);
+            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
+            continue;
         }
 
     }
