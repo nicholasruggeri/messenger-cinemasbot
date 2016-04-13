@@ -97,44 +97,24 @@ app.post('/', function (req, res) {
 
     var messaging_events = req.body.entry[0].messaging;
 
-    console.log('me', messaging_events)
+    for (var i = 0; i < messaging_events.length; i++) {
 
-    // for (var i = 0; i < messaging_events.length; i++) {
-
-        var event = req.body.entry[0].messaging[0];
+        var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
+        console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message && event.message.text) {
             var text = event.message.text;
             // Handle a text message from this sender
             if (text === 'The Space Silea') {
                 sendGenericMessage(sender);
-                // continue;
+                continue;
             } else {
                 sendTextMessage(sender, "Theater not found, sorry...");
             }
-        } else {
-            sendGenericMessage(sender);
         }
-
-        // if (event.message.attachments[0].payload.coordinates) {
-
-        //     console.log(event.message.attachments[0].payload.coordinates)
-        //     console.log('ok, position')
-
-        // } else {
-        //     console.log('not location')
-        // }
-
-        // if (event.postback) {
-        //     text = JSON.stringify(event.postback);
-        //     sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
-        //     continue;
-        // }
-
-    // }
+    }
 
     res.sendStatus(200);
 
