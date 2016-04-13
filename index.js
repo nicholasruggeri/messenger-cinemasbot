@@ -39,19 +39,12 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
-                var user_text = event.message.text.toLowerCase();
+                let user_text = event.message.text.toLowerCase();
 
-                switch(user_text) {
-
-                    case 'hello':
-                    case 'hi':
-                    case 'ciao':
-                        events.sendTextMessage(token, sender, "Hello :)");
-                        break;
-
-                    default:
-                        events.sendTextMessage(token, sender, "Ehy, send your location.");
-
+                if (user_text == "hello" || user_text == "hi") {
+                    events.sendTextMessage(token, sender, "Hello :)");
+                } else {
+                    events.sendTextMessage(token, sender, "Ehy, send your location.");
                 }
 
             } else if (event.message.attachments) {
@@ -73,7 +66,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            var text = JSON.stringify(event.postback);
+            let text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
