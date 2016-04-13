@@ -1,3 +1,4 @@
+"use strict";
 
 var util        = require('util'),
     express     = require('express'),
@@ -38,7 +39,9 @@ app.post('/', function (req, res) {
 
             if (event.message.text){
 
-                if (event.message.text == "hello" || event.message.text == "hi") {
+                let user_text = event.message.text.toLowerCase();
+
+                if (user_text == "hello" || user_text == "hi") {
                     events.sendTextMessage(token, sender, "Hello :)");
                 } else {
                     events.sendTextMessage(token, sender, "Ehy, send your location.");
@@ -46,7 +49,6 @@ app.post('/', function (req, res) {
 
                 // console.log('MESSAGGIO DI TESTO')
 
-                // var text = event.message.text;
                 // if (text === 'The Space Silea') {
                 //     events.sendGenericMessage(token, sender);
                 //     continue;
@@ -62,10 +64,13 @@ app.post('/', function (req, res) {
 
                 console.log('MESSAGGIO NON DI TESTO')
                 events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
-                services.getCinema(coords, function(list_theaters){
-                    console.log('CALLBACK')
-                    events.sendGenericMessage(token, sender, list_theaters);
-                });
+
+                setTimeout( () => {
+                    services.getCinema(coords, function(list_theaters){
+                        console.log('CALLBACK')
+                        events.sendGenericMessage(token, sender, list_theaters);
+                    });
+                }, 300)
 
             }
         } else if (event.postback) {
