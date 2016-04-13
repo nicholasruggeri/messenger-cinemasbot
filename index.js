@@ -7,11 +7,11 @@ var express = require('express'),
     _ = require('underscore'),
     ua = require('universal-analytics');
 
-// Dipendenze
-var helpers = require('./helpers/helpers'),
-    services = require('./services/services'),
-    events = require('./events/events'),
-    commands = require('./commands');
+// // Dipendenze
+// var helpers = require('./helpers/helpers'),
+//     services = require('./services/services'),
+//     events = require('./events/events'),
+//     commands = require('./commands');
 
 var app = express(),
     token = process.env.TELEGRAM_TOKEN,
@@ -19,18 +19,10 @@ var app = express(),
 
 var qs = {}; // object containing the query string that will be serialized
 
-var session_request = {},
-    session_location = false,
-    session_theaters = false,
-    session_movies = false,
-    session_theater_selected = false;
-
-let user_location;
-
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 app.get('/', function (req, res) {
-    console.log('ok')
+    res.send('hello world')
 });
 
 app.listen(process.env.PORT);
