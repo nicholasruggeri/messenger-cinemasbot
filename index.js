@@ -111,7 +111,7 @@ app.post('/', function (req, res) {
             // Handle a text message from this sender
             if (text === 'The Space Silea') {
                 sendGenericMessage(sender);
-                continue;
+                // continue;
             } else {
                 sendTextMessage(sender, "Theater not found, sorry...");
             }
