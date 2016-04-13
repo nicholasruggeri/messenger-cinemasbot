@@ -41,20 +41,18 @@ app.post('/', function (req, res) {
 
                 let user_text = event.message.text.toLowerCase();
 
-                if (user_text == "hello" || user_text == "hi") {
-                    events.sendTextMessage(token, sender, "Hello :)");
-                } else {
-                    events.sendTextMessage(token, sender, "Ehy, send your location.");
+                switch(user_text) {
+
+                    case 'hello':
+                    case 'hi':
+                    case 'ciao':
+                        events.sendTextMessage(token, sender, "Hello :)");
+                        break;
+
+                    default:
+                        events.sendTextMessage(token, sender, "Ehy, send your location.");
+
                 }
-
-                // console.log('MESSAGGIO DI TESTO')
-
-                // if (text === 'The Space Silea') {
-                //     events.sendGenericMessage(token, sender);
-                //     continue;
-                // } else {
-                //     events.sendTextMessage(token, sender, "Theater not found, sorry...");
-                // }
 
             } else if (event.message.attachments) {
 
@@ -75,7 +73,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            text = JSON.stringify(event.postback);
+            let text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
