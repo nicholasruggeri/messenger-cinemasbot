@@ -10,7 +10,7 @@ module.exports = {
         request(googleUrl, function(error, response, html){
             if(!error){
                 var $ = cheerio.load(html);
-                var theaters = [];
+                var list_theaters = [];
                 $('.theater .desc .name a').each(function(index){
                     var element = {};
                     var data = $(this);
@@ -18,12 +18,13 @@ module.exports = {
                         info = data.parent().parent().find('.info').text(),
                         link = data.attr('href');
                     element = name;
-                    theaters.push([element]);
+                    list_theaters.push([element]);
                 });
-                if (typeof callback == "function")
-                    return callback(theaters);
-                else
-                    return theaters;
+                console.log(list_theaters)
+                // if (typeof callback == "function")
+                //     return callback(theaters);
+                // else
+                //     return theaters;
             } else {
                 console.log("ERROR GETCINEMA", err); return;
             }
