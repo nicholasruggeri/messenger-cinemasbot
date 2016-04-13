@@ -49,7 +49,7 @@ app.post('/', function (req, res) {
                 }
 
             } else if (event.message.attachments) {
-                console.log(util.inspect(event.message.attachments.payload.coordinates, {showHidden: true, depth: 5}));
+                console.log(util.inspect(event.message.attachments.payload, {showHidden: true, depth: 5}));
                 console.log('MESSAGGIO NON DI TESTO')
                 // services.getCinema(user_location, function(){
                 //     console.log('CALLBACK')
