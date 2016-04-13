@@ -52,6 +52,7 @@ app.post('/', function (req, res) {
                     case 'help':
                     case 'aiuto':
                         events.sendTextMessage(token, sender, "Help command");
+                        break;
 
                     default:
                         events.sendTextMessage(token, sender, "Ehy, send your location.");
