@@ -21,10 +21,10 @@ module.exports = {
                     list_theaters.push([element]);
                 });
                 console.log(list_theaters)
-                // if (typeof callback == "function")
-                //     return callback(theaters);
-                // else
-                //     return theaters;
+                if (typeof callback == "function")
+                    return callback(list_theaters);
+                else
+                    return list_theaters;
             } else {
                 console.log("ERROR GETCINEMA", err); return;
             }

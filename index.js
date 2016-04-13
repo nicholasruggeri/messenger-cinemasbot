@@ -49,15 +49,18 @@ app.post('/', function (req, res) {
                 }
 
             } else if (event.message.attachments) {
+
                 var lat = event.message.attachments[0].payload.coordinates.lat,
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
+
                 console.log('MESSAGGIO NON DI TESTO')
-                services.getCinema(coords, function(){
+                services.getCinema(coords, function(list_theaters){
                     console.log('CALLBACK')
+                    events.sendGenericMessage(token, sender, list_theaters);
                 });
                 // events.sendTextMessage(token, sender, "Great! Here are the movies at the cinema");
-                // events.sendGenericMessage(token, sender);
+
             }
         }
     }
