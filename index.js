@@ -114,6 +114,13 @@ app.post('/', function (req, res) {
                 sendTextMessage(sender, "Theater not found, sorry...");
             }
         }
+
+        console.log(event.message.attachments[0].payload.coodinates)
+
+        // if (event.message.attachments[0].payload.coodinates) {
+
+        // }
+
         if (event.postback) {
             text = JSON.stringify(event.postback);
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token);
