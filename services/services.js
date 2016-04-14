@@ -33,11 +33,12 @@ module.exports = {
 
     getMovies: function(location, theater, callback){
 
-        var theater = theater.payload;
+        // console.log('GETMOVIES', location)
+        console.log('theater', theater)
+        console.log('theater payload', theater.payload)
 
-        console.log('GETMOVIES', location)
-        console.log('GETMOVIES', theater)
         var googleUrl = 'http://www.google.it/movies?near='+location;
+
         request(googleUrl, function(error, response, html){
             if(!error){
                 var $ = cheerio.load(html);
