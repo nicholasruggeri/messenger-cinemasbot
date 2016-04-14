@@ -13,8 +13,8 @@ module.exports = {
 
             if(!error){
 
-                var $ = cheerio.load(html);
-                var list_theaters = [];
+                let $ = cheerio.load(html);
+                let list_theaters = [];
 
                 $('.theater .desc .name a').each(function(){
 
@@ -36,9 +36,9 @@ module.exports = {
 
     getMovies: function(location, theater, callback){
 
-        return new Promise((resolve,reject)=>{
+        return new Promise((resolve, reject) => {
 
-            var googleUrl = 'http://www.google.com/movies?near='+location;
+            let googleUrl = `http://www.google.com/movies?near=${location}`;
 
             request(googleUrl, function(error, response, html){
                 if(!error){

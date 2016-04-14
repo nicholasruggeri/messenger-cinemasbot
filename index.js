@@ -1,19 +1,16 @@
 "use strict";
 
-var util        = require('util'),
+let util        = require('util'),
     express     = require('express'),
     bodyParser  = require('body-parser'),
-    request     = require('request');
+    request     = require('request'),
+    events      = require('./events/events'),
+    services    = require('./services/services');
 
-var events = require('./events/events'),
-    services = require('./services/services');
-
-var app = express(),
+let app   = express(),
     token = process.env.FB_TOKEN;
 
-var sender = {};
-
-
+let sender = {};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,12 +29,10 @@ app.post('/', function (req, res) {
 
     var messaging_events = req.body.entry[0].messaging;
 
-    for (var i = 0; i < messaging_events.length; i++) {
+    for (let i = 0; i < messaging_events.length; i++) {
 
         var event = req.body.entry[0].messaging[i];
         var sender_id = event.sender.id;
-
-        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
 
@@ -90,17 +85,15 @@ app.post('/', function (req, res) {
 
             console.log('sender', sender) // QUA NON VIENE PRESO L'OGGETTO CON LE COORDINATE
 
-            // console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-
             let choosenTheater = event.postback.payload;
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
 
 
-            setTimeout( () => {
+            setTimeout(() => {
+
                 services.getMovies(sender[sender_id].coords, choosenTheater).then((list_movies)=>{
 
                     let round = Math.round(list_movies.length/10);
-
 
                     if (list_movies.length > 10){
 
@@ -118,6 +111,7 @@ app.post('/', function (req, res) {
                     }
 
                 });
+
             }, 300)
 
         }
