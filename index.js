@@ -1,3 +1,4 @@
+"use strict";
 
 var util        = require('util'),
     express     = require('express'),
@@ -32,23 +33,34 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender = event.sender.id;
 
-        console.log(util.inspect(event, {showHidden: true, depth: 5}));
+        // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
 
             if (event.message.text){
 
-                var user_text = event.message.text.toLowerCase();
+                let user_text = event.message.text.toLowerCase();
 
-                if (user_text == "hello" || user_text == "hi") {
-                    events.sendTextMessage(token, sender, "Hello :)");
-                } else {
-                    events.sendTextMessage(token, sender, "Ehy, send your location.");
+                switch(user_text) {
+
+                    case 'hello':
+                    case 'hi':
+                    case 'ciao':
+                        events.sendTextMessage(token, sender, "Hello :)");
+                        break;
+
+                    case 'help':
+                    case 'aiuto':
+                        events.sendTextMessage(token, sender, "Help command");
+
+                    default:
+                        events.sendTextMessage(token, sender, "Ehy, send your location.");
+
                 }
 
             } else if (event.message.attachments) {
 
-                var lat = event.message.attachments[0].payload.coordinates.lat,
+                let lat = event.message.attachments[0].payload.coordinates.lat,
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
@@ -56,7 +68,7 @@ app.post('/', function (req, res) {
                 events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
-                    services.getCinema(coords, function(list_theaters){
+                    services.getCinema(coords, (list_theaters) => {
                         console.log('CALLBACK')
                         events.sendGenericMessage(token, sender, list_theaters);
                     });
@@ -65,7 +77,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            var text = JSON.stringify(event.postback);
+            let text = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
