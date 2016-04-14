@@ -71,11 +71,16 @@ app.post('/', function (req, res) {
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
+                sender[sender_id] = {
+                    id: sender_id,
+                    coords: coords
+                }
+
                 console.log('MESSAGGIO NON DI TESTO')
                 events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
-                    services.getCinema(coords, (list_theaters) => {
+                    services.getCinema(sender[sender_id].coords, (list_theaters) => {
                         console.log('CALLBACK')
                         events.sendGenericMessage(token, sender[sender_id].id, list_theaters);
                     });
