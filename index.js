@@ -73,9 +73,8 @@ app.post('/', function (req, res) {
 
                 sender[sender_id].coords = coords;
 
-                console.log('sender', sender)
+                console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
 
-                console.log('MESSAGGIO NON DI TESTO')
                 events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
@@ -87,7 +86,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
 
-            // console.log('sender', sender)
+            console.log('sender', sender) // QUA NON VIENE PRESO L'OGGETTO CON LE COORDINATE
 
             // console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
 
