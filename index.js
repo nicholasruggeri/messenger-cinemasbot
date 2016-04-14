@@ -13,8 +13,6 @@ var app = express(),
 
 var sender = {};
 
-
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -97,6 +95,7 @@ app.post('/', function (req, res) {
 
             setTimeout( () => {
                 services.getMovies(sender[sender_id].coords, choosenTheater, (list_movies) => {
+                    console.log(list_movies)
                     events.returnMovies(token, sender[sender_id].id, list_movies);
                 });
             }, 300)
