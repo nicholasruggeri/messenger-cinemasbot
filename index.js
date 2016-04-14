@@ -97,7 +97,7 @@ app.post('/', function (req, res) {
             setTimeout( () => {
                 services.getMovies(sender[sender_id].coords, choosenTheater, () => {
                     console.log('CALLBACK MOVIES')
-                    events.returnMovies(token, sender[sender_id].id, list_theaters);
+                    events.returnMovies(token, sender[sender_id].id);
                 });
             }, 300)
 
