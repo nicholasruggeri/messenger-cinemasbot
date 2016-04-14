@@ -67,21 +67,21 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                // let lat = event.message.attachments[0].payload.coordinates.lat,
-                //     long = event.message.attachments[0].payload.coordinates.long,
-                //     coords = lat + ',' + long;
+                let lat = event.message.attachments[0].payload.coordinates.lat,
+                    long = event.message.attachments[0].payload.coordinates.long,
+                    coords = lat + ',' + long;
 
-                // sender[sender_id].coords = coords;
+                sender[sender_id].coords = coords;
 
-                // console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
+                console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
 
-                // events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
+                events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
 
-                // setTimeout( () => {
-                //     services.getCinema(sender[sender_id].coords, (list_theaters) => {
-                //         events.returnTheaters(token, sender[sender_id].id, list_theaters);
-                //     });
-                // }, 300)
+                setTimeout( () => {
+                    services.getCinema(sender[sender_id].coords, (list_theaters) => {
+                        events.returnTheaters(token, sender[sender_id].id, list_theaters);
+                    });
+                }, 300)
 
             }
         } else if (event.postback) {
