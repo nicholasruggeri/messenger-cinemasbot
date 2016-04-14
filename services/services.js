@@ -46,7 +46,7 @@ module.exports = {
                             var data = $(this);
                             var name = data.find('.name a').text();
                             element = name;
-                            movies.push([element]);
+                            movies.push(element);
                         });
                     }
                 });
