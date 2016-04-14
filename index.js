@@ -52,16 +52,16 @@ app.post('/', function (req, res) {
                     case 'hello':
                     case 'hi':
                     case 'ciao':
-                        events.sendTextMessage(token, sender[sender_id][id], event.message.text + " :)");
+                        events.sendTextMessage(token, sender[sender_id].id, event.message.text + " :)");
                         break;
 
                     case 'help':
                     case 'aiuto':
-                        events.sendTextMessage(token, sender[sender_id][id], "Help command");
+                        events.sendTextMessage(token, sender[sender_id].id, "Help command");
                         break;
 
                     default:
-                        events.sendTextMessage(token, sender[sender_id][id], "Ehy, send your location.");
+                        events.sendTextMessage(token, sender[sender_id].id, "Ehy, send your location.");
 
                 }
 
@@ -72,12 +72,12 @@ app.post('/', function (req, res) {
                     coords = lat + ',' + long;
 
                 console.log('MESSAGGIO NON DI TESTO')
-                events.sendTextMessage(token, sender[sender_id][id], "Great, now choose the theater you prefer.");
+                events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
                     services.getCinema(coords, (list_theaters) => {
                         console.log('CALLBACK')
-                        events.sendGenericMessage(token, sender[sender_id][id], list_theaters);
+                        events.sendGenericMessage(token, sender[sender_id].id, list_theaters);
                     });
                 }, 300)
 
@@ -85,7 +85,7 @@ app.post('/', function (req, res) {
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
             let text = JSON.stringify(event.postback);
-            events.sendTextMessage(token, sender[sender_id][id], "Ok, just a moment...");
+            events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
         }
     }
 
