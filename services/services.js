@@ -63,7 +63,9 @@ module.exports = {
                                     console.log("Got an error: ", error, ", status code: ", response.statusCode);
                                 }
                             });
-                        });
+                        }).promise().done( function(){
+                            console.log('DONE')
+                        } );
                     }
                 });
                 if (typeof callback == "function"){
