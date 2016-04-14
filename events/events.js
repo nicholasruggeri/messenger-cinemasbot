@@ -1,7 +1,7 @@
 "use strict";
 
-let request = require('request'),
-    _u      = require('underscore');
+let request = require('request');
+let _u = require('underscore');
 
 module.exports = {
 
@@ -32,7 +32,7 @@ module.exports = {
 
 
     returnTheaters: (token, sender, data) => {
-        let messageData = {
+        var messageData = {
             "attachment": {
                 "type": "template",
                 "payload": {
@@ -42,7 +42,7 @@ module.exports = {
             }
         };
 
-        for (let i=0; i<data.length; i++) {
+        for (var i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
                 "title": 'Theater '+[i+1],
@@ -83,7 +83,13 @@ module.exports = {
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "elements": []
+                    "elements": [
+                        // {
+                        //     "title": "Batman VS Superman",
+                        //     "subtitle": "17:30 - 19:30 - 21:30 - 23:00",
+                        //     "image_url": "https://s.yimg.com/ny/api/res/1.2/gyFqKB85n5rFl4e1SpvJDg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAwO2lsPXBsYW5l/http://l.yimg.com/cd/resizer/2.0/FIT_TO_WIDTH-w1280/08d16d4567f303c46f16a66041eca2f620352f4b.jpg",
+                        // }
+                    ]
                 }
             }
         };
