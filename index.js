@@ -35,13 +35,15 @@ app.post('/', function (req, res) {
         var event = req.body.entry[0].messaging[i];
         var sender_id = event.sender.id;
 
-        sender[sender_id].id = sender_id;
-
         // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
 
             if (event.message.text){
+
+                sender[sender_id] = {
+                    id: sender_id
+                }
 
                 let user_text = event.message.text.toLowerCase();
 
