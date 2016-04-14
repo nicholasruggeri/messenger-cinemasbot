@@ -82,15 +82,25 @@ app.post('/', function (req, res) {
                 setTimeout( () => {
                     services.getCinema(sender[sender_id].coords, (list_theaters) => {
                         console.log('CALLBACK')
-                        events.sendGenericMessage(token, sender[sender_id].id, list_theaters);
+                        events.returnTheaters(token, sender[sender_id].id, list_theaters);
                     });
                 }, 300)
 
             }
         } else if (event.postback) {
-            console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
-            let text = JSON.stringify(event.postback);
+
+            // console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
+
+            let choosenTheater = JSON.stringify(event.postback);
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
+
+            setTimeout( () => {
+                services.getMovies(sender[sender_id].coords, choosenTheater, () => {
+                    console.log('CALLBACK MOVIES')
+                    events.returnMovies(token, sender[sender_id].id, list_theaters);
+                });
+            }, 300)
+
         }
     }
 
