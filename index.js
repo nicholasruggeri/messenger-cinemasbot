@@ -95,8 +95,9 @@ app.post('/', function (req, res) {
             let choosenTheater = event.postback.payload;
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
 
+
             setTimeout( () => {
-                services.getMovies(sender[sender_id].coords, choosenTheater, (list_movies) => {
+                services.getMovies(sender[sender_id].coords, choosenTheater).then((list_movies)=>{
                     console.log(list_movies)
                     events.returnMovies(token, sender[sender_id].id, list_movies);
                 });

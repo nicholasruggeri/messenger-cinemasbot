@@ -33,65 +33,74 @@ module.exports = {
 
     getMovies: function(location, theater, callback){
 
-        var googleUrl = 'http://www.google.it/movies?near='+location;
+        return new Promise((resolve,reject)=>{
 
-        request(googleUrl, function(error, response, html){
-            if(!error){
-                var $ = cheerio.load(html);
-                var movies = [];
+            var googleUrl = 'http://www.google.it/movies?near='+location;
 
-                new Promise((resolve, reject) => {
+            request(googleUrl, function(error, response, html){
+                if(!error){
 
+                    var $ = cheerio.load(html);
+                    var movies = [];
+                    var movies_promise = [];
 
                     $('.theater .desc .name a').each(function(index){
                         var text = $(this).text()
                         if (text == theater){
                             var data = $(this);
+
+
                             data.parent().parent().siblings('.showtimes').find('.movie').each(function(){
+
                                 var element = {};
                                 var data = $(this);
                                 var name = data.find('.name a').text();
                                 var movieTimes = data.find('.times').text();
 
-                                request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
-                                    if (!error && response.statusCode == 200) {
+                                movies_promise.push(new Promise((resolve, reject) => {
 
-                                        const movieResponse = JSON.parse(body);
+                                    request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
+                                        if (!error && response.statusCode == 200) {
 
-                                        element.name = name;
-                                        element.times = movieTimes;
-                                        element.poster = movieResponse.Poster;
-                                        movies.push(element);
+                                            const movieResponse = JSON.parse(body);
 
-                                    } else {
-                                        console.log("Got an error: ", error, ", status code: ", response.statusCode);
-                                    }
-                                });
+                                            element.name = name;
+                                            element.times = movieTimes;
+                                            element.poster = movieResponse.Poster;
+                                            movies.push(element);
+
+                                        } else {
+                                            console.log("Got an error: ", error, ", status code: ", response.statusCode);
+                                        }
+
+                                        resolve()
+                                    });
+
+                                }).then((data) => {
+
+
+
+                                }).catch((response) => {
+                                    console.log('error', response)
+                                }));
+
                             });
+
+
+
                         }
                     });
 
-                    resolve()
+                    Promise.all(movies_promise).then(()=>{
+                        resolve(movies)
+                    })
+                } else {
+                    console.log("ERROR GETMOVIES", err); return;
+                }
+            });
 
+        })
 
-                }).then(() => {
-
-                    console.log('THEN')
-                    if (typeof callback == "function"){
-                        return callback(movies);
-                    } else {
-                        return movies;
-                    }
-
-                }).catch((response) => {
-                    console.log('error', response)
-                })
-
-
-            } else {
-                console.log("ERROR GETMOVIES", err); return;
-            }
-        });
     },
 
     getTimes: function(location, theater, movie, callback){
