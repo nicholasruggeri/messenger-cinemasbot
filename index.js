@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-    var messaging_events = req.body.entry[0].messaging;
+    let messaging_events = req.body.entry[0].messaging;
 
     for (let i = 0; i < messaging_events.length; i++) {
 
@@ -64,9 +64,9 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                let lat = event.message.attachments[0].payload.coordinates.lat,
-                    long = event.message.attachments[0].payload.coordinates.long,
-                    coords = lat + ',' + long;
+                let lat    = event.message.attachments[0].payload.coordinates.lat,
+                    long   = event.message.attachments[0].payload.coordinates.long,
+                    coords = `${lat},${long}`;
 
                 sender[sender_id].coords = coords;
 

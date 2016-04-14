@@ -13,10 +13,11 @@ module.exports = {
 
             if(!error){
 
-                let $ = cheerio.load(html);
-                let list_theaters = [];
+                let $ = cheerio.load(html),
+                    list_theaters = [],
+                    single_theater = $('.theater .desc .name a');
 
-                $('.theater .desc .name a').each(function(){
+                single_theater.each(function(){
 
                     let theater_name = $(this).text();
                     list_theaters.push(theater_name);
@@ -41,17 +42,20 @@ module.exports = {
             let googleUrl = `http://www.google.com/movies?near=${location}`;
 
             request(googleUrl, function(error, response, html){
+
                 if(!error){
 
-                    var $ = cheerio.load(html);
-                    var movies = [];
-                    var movies_promise = [];
+                    let $ = cheerio.load(html),
+                        movies = [],
+                        movies_promise = [];
 
                     $('.theater .desc .name a').each(function(){
-                        var text = $(this).text()
-                        if (text == theater){
-                            var data = $(this);
 
+                        var text = $(this).text()
+
+                        if (text == theater){
+
+                            var data = $(this);
 
                             data.parent().parent().siblings('.showtimes').find('.movie').each(function(){
 
@@ -77,9 +81,12 @@ module.exports = {
                                         }
 
                                         resolve()
+
                                     });
 
-                                }).then((data) => {
+                                }).then(() => {
+
+                                    console.log('img loaded')
 
                                 }).catch((response) => {
                                     console.log('error', response)
@@ -93,6 +100,7 @@ module.exports = {
                     Promise.all(movies_promise).then(()=>{
                         resolve(movies)
                     })
+
                 } else {
                     console.log("ERROR GETMOVIES", err); return;
                 }
