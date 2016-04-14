@@ -71,6 +71,8 @@ module.exports = {
                         }
                     });
 
+                    resolve()
+
 
                 }).then(() => {
 
