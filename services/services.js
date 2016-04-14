@@ -32,6 +32,9 @@ module.exports = {
     },
 
     getMovies: function(location, theater, callback){
+
+        console.log('GETMOVIES', location)
+        console.log('GETMOVIES', theater)
         var googleUrl = 'http://www.google.it/movies?near='+location;
         request(googleUrl, function(error, response, html){
             if(!error){
