@@ -37,8 +37,6 @@ app.post('/', function (req, res) {
 
         sender[sender_id] = sender_id;
 
-        console.log('sender', sender)
-
         // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
         if (event.message) {
@@ -71,19 +69,15 @@ app.post('/', function (req, res) {
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
-                // sender[sender_id] {
-                //     coords: coords
-                // }
+                console.log('MESSAGGIO NON DI TESTO')
+                events.sendTextMessage(token, sender[sender_id], "Great, now choose the theater you prefer.");
 
-                // console.log('MESSAGGIO NON DI TESTO')
-                // events.sendTextMessage(token, sender[sender_id], "Great, now choose the theater you prefer.");
-
-                // setTimeout( () => {
-                //     services.getCinema(sender[sender_id].coords, (list_theaters) => {
-                //         console.log('CALLBACK')
-                //         events.sendGenericMessage(token, sender[sender_id], list_theaters);
-                //     });
-                // }, 300)
+                setTimeout( () => {
+                    services.getCinema(coords, (list_theaters) => {
+                        console.log('CALLBACK')
+                        events.sendGenericMessage(token, sender[sender_id], list_theaters);
+                    });
+                }, 300)
 
             }
         } else if (event.postback) {
