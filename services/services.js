@@ -5,11 +5,11 @@ var request = require('request'),
 
 module.exports = {
 
-    getCinema: function(location, callback){
+    getCinema: (location, callback) => {
 
         let googleUrl = 'http://www.google.com/movies?near='+location;
 
-        request(googleUrl, function(error, response, html){
+        request(googleUrl, (error, response, html) => {
 
             if(!error){
 
@@ -17,7 +17,7 @@ module.exports = {
                     list_theaters = [],
                     single_theater = $('.theater .desc .name a');
 
-                single_theater.each(function(){
+                single_theater.each(() => {
 
                     let theater_name = $(this).text();
                     list_theaters.push(theater_name);
