@@ -95,8 +95,8 @@ module.exports = {
         for (var i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
-                "title": data[i],
-                "subtitle": "17:30 - 19:30 - 21:30 - 23:00",
+                "title": data[i].name,
+                "subtitle": data[i].times,
                 "image_url": "https://s.yimg.com/ny/api/res/1.2/gyFqKB85n5rFl4e1SpvJDg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAwO2lsPXBsYW5l/http://l.yimg.com/cd/resizer/2.0/FIT_TO_WIDTH-w1280/08d16d4567f303c46f16a66041eca2f620352f4b.jpg"
             })
         }
