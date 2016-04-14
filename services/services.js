@@ -6,7 +6,7 @@ var helpers = require('../helpers/helpers');
 module.exports = {
 
     getCinema: function(location, callback){
-        var googleUrl = 'http://www.google.it/movies?near='+location;
+        var googleUrl = 'http://www.google.com/movies?near='+location;
         request(googleUrl, function(error, response, html){
             if(!error){
                 var $ = cheerio.load(html);
@@ -35,7 +35,7 @@ module.exports = {
 
         return new Promise((resolve,reject)=>{
 
-            var googleUrl = 'http://www.google.it/movies?near='+location;
+            var googleUrl = 'http://www.google.com/movies?near='+location;
 
             request(googleUrl, function(error, response, html){
                 if(!error){
@@ -104,7 +104,7 @@ module.exports = {
     },
 
     getTimes: function(location, theater, movie, callback){
-        var googleUrl = 'http://www.google.it/movies?near='+location;
+        var googleUrl = 'http://www.google.com/movies?near='+location;
         request(googleUrl, function(error, response, html){
             if(!error){
                 var $ = cheerio.load(html);
