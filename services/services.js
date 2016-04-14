@@ -7,7 +7,7 @@ module.exports = {
 
     getCinema: function(location, callback){
 
-        let googleUrl = 'http://www.google.com/movies?near='+location;
+        let googleUrl = `http://www.google.com/movies?near=${location}`;
 
         request(googleUrl, function(error, response, html){
 
