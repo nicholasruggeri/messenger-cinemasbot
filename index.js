@@ -98,8 +98,25 @@ app.post('/', function (req, res) {
 
             setTimeout( () => {
                 services.getMovies(sender[sender_id].coords, choosenTheater).then((list_movies)=>{
-                    console.log(list_movies)
-                    events.returnMovies(token, sender[sender_id].id, list_movies);
+
+                    let round = Math.round(list_movies.length/10);
+
+
+                    if (list_movies.length > 10){
+
+                        for (let i=0; i < round; i++) {
+
+                            events.returnMovies(token, sender[sender_id].id, list_movies.slice(i*10,(i+1)*10));
+
+                        }
+
+                    } else {
+
+                        console.log(list_movies)
+                        events.returnMovies(token, sender[sender_id].id, list_movies);
+
+                    }
+
                 });
             }, 300)
 
