@@ -61,19 +61,19 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                let lat = event.message.attachments[0].payload.coordinates.lat,
-                    long = event.message.attachments[0].payload.coordinates.long,
-                    coords = lat + ',' + long;
+                // let lat = event.message.attachments[0].payload.coordinates.lat,
+                //     long = event.message.attachments[0].payload.coordinates.long,
+                //     coords = lat + ',' + long;
 
-                console.log('MESSAGGIO NON DI TESTO')
-                events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
+                // console.log('MESSAGGIO NON DI TESTO')
+                // events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
 
-                setTimeout( () => {
-                    services.getCinema(coords, (list_theaters) => {
-                        console.log('CALLBACK')
-                        events.sendGenericMessage(token, sender, list_theaters);
-                    });
-                }, 300)
+                // setTimeout( () => {
+                //     services.getCinema(coords, (list_theaters) => {
+                //         console.log('CALLBACK')
+                //         events.sendGenericMessage(token, sender, list_theaters);
+                //     });
+                // }, 300)
 
             }
         } else if (event.postback) {
