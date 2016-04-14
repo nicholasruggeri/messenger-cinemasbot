@@ -95,9 +95,9 @@ app.post('/', function (req, res) {
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
 
             setTimeout( () => {
-                services.getMovies(sender[sender_id].coords, choosenTheater, () => {
+                services.getMovies(sender[sender_id].coords, choosenTheater, (list_movies) => {
                     console.log('CALLBACK MOVIES')
-                    events.returnMovies(token, sender[sender_id].id);
+                    // events.returnMovies(token, sender[sender_id].id);
                 });
             }, 300)
 
