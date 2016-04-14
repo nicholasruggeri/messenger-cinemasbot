@@ -69,15 +69,15 @@ app.post('/', function (req, res) {
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
-                sender[event.sender.id].coords = coords;
+                sender[event.sender].coords = coords;
 
                 console.log('MESSAGGIO NON DI TESTO')
-                events.sendTextMessage(token, sender[event.sender.id].id, "Great, now choose the theater you prefer.");
+                events.sendTextMessage(token, sender[sender_id], "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
                     services.getCinema(coords, (list_theaters) => {
                         console.log('CALLBACK')
-                        events.sendGenericMessage(token, sender[event.sender.id].id, list_theaters);
+                        events.sendGenericMessage(token, sender[sender_id], list_theaters);
                     });
                 }, 300)
 
@@ -85,7 +85,7 @@ app.post('/', function (req, res) {
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
             let text = JSON.stringify(event.postback);
-            events.sendTextMessage(token, sender[event.sender.id].id, "Ok, just a moment...");
+            events.sendTextMessage(token, sender[sender_id], "Ok, just a moment...");
         }
     }
 
