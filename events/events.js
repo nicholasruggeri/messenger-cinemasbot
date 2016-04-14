@@ -88,12 +88,12 @@ module.exports = {
             }
         };
 
-        for (let i=0; i<data.length; i++) {
+        for (var i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
-                "title" : data[i].name,
-                "subtitle" : data[i].times,
-                "image_url" : data[i].poster
+                "title": data[i].name,
+                "subtitle": data[i].times,
+                "image_url": data[i].poster
             })
         }
 
@@ -119,4 +119,7 @@ module.exports = {
         });
     }
 }
+
+
+
 
