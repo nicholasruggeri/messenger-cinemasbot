@@ -33,8 +33,9 @@ app.post('/', function (req, res) {
     for (var i = 0; i < messaging_events.length; i++) {
 
         var event = req.body.entry[0].messaging[i];
+        var sender_id = event.sender.id;
 
-        sender[event.sender.id].id = event.sender.id;
+        sender[sender_id].id = sender_id;
 
         // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
