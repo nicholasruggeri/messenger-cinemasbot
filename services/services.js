@@ -48,9 +48,21 @@ module.exports = {
                             var data = $(this);
                             var name = data.find('.name a').text();
                             var movieTimes = data.find('.times').text();
-                            element.name = name;
-                            element.times = movieTimes;
-                            movies.push(element);
+
+                            request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
+                                if (!error && response.statusCode == 200) {
+
+                                    const movieResponse = JSON.parse(body);
+
+                                    element.name = name;
+                                    element.times = movieTimes;
+                                    element.poster = movieResponse.Poster;
+                                    movies.push(element);
+
+                                } else {
+                                    console.log("Got an error: ", error, ", status code: ", response.statusCode);
+                                }
+                            });
                         });
                     }
                 });
