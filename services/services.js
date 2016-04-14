@@ -35,7 +35,7 @@ module.exports = {
 
         // console.log('GETMOVIES', location)
         console.log('theater', theater)
-        console.log('theater payload', theater.payload)
+        console.log('theater payload', theater)
 
         var googleUrl = 'http://www.google.it/movies?near='+location;
 
