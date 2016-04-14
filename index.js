@@ -11,8 +11,6 @@ var events = require('./events/events'),
 var app = express(),
     token = process.env.FB_TOKEN;
 
-var sender = {};
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -33,9 +31,7 @@ app.post('/', function (req, res) {
     for (var i = 0; i < messaging_events.length; i++) {
 
         var event = req.body.entry[0].messaging[i];
-        var sender_id = event.sender.id;
-
-        sender[sender_id] = sender_id;
+        var sender = event.sender.id;
 
         // console.log(util.inspect(event, {showHidden: true, depth: 5}));
 
@@ -50,16 +46,16 @@ app.post('/', function (req, res) {
                     case 'hello':
                     case 'hi':
                     case 'ciao':
-                        events.sendTextMessage(token, sender[sender_id], event.message.text + " :)");
+                        events.sendTextMessage(token, sender, event.message.text + " :)");
                         break;
 
                     case 'help':
                     case 'aiuto':
-                        events.sendTextMessage(token, sender[sender_id], "Help command");
+                        events.sendTextMessage(token, sender, "Help command");
                         break;
 
                     default:
-                        events.sendTextMessage(token, sender[sender_id], "Ehy, send your location.");
+                        events.sendTextMessage(token, sender, "Ehy, send your location.");
 
                 }
 
@@ -70,12 +66,12 @@ app.post('/', function (req, res) {
                     coords = lat + ',' + long;
 
                 console.log('MESSAGGIO NON DI TESTO')
-                events.sendTextMessage(token, sender[sender_id], "Great, now choose the theater you prefer.");
+                events.sendTextMessage(token, sender, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
                     services.getCinema(coords, (list_theaters) => {
                         console.log('CALLBACK')
-                        events.sendGenericMessage(token, sender[sender_id], list_theaters);
+                        events.sendGenericMessage(token, sender, list_theaters);
                     });
                 }, 300)
 
@@ -83,7 +79,7 @@ app.post('/', function (req, res) {
         } else if (event.postback) {
             console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
             let text = JSON.stringify(event.postback);
-            events.sendTextMessage(token, sender[sender_id], "Ok, just a moment...");
+            events.sendTextMessage(token, sender, "Ok, just a moment...");
         }
     }
 
