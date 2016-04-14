@@ -95,7 +95,7 @@ app.post('/', function (req, res) {
 
             setTimeout( () => {
                 services.getMovies(sender[sender_id].coords, choosenTheater, (list_movies) => {
-                    events.returnMovies(token, sender[sender_id].id);
+                    events.returnMovies(token, sender[sender_id].id, list_movies);
                 });
             }, 300)
 
