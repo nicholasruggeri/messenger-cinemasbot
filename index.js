@@ -69,7 +69,9 @@ app.post('/', function (req, res) {
                     long = event.message.attachments[0].payload.coordinates.long,
                     coords = lat + ',' + long;
 
-                sender[sender_id].coords = coords;
+                sender[sender_id] {
+                    coords: coords
+                }
 
                 console.log('MESSAGGIO NON DI TESTO')
                 events.sendTextMessage(token, sender[sender_id], "Great, now choose the theater you prefer.");
