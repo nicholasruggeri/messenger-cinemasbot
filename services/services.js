@@ -18,7 +18,7 @@ module.exports = {
                         info = data.parent().parent().find('.info').text(),
                         link = data.attr('href');
                     element = name;
-                    list_theaters.push([element]);
+                    list_theaters.push(element);
                 });
                 // console.log(list_theaters)
                 if (typeof callback == "function")
