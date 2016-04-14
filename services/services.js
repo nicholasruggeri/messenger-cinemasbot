@@ -33,6 +33,8 @@ module.exports = {
 
     getMovies: function(location, theater, callback){
 
+        var theater = theater.payload;
+
         console.log('GETMOVIES', location)
         console.log('GETMOVIES', theater)
         var googleUrl = 'http://www.google.it/movies?near='+location;
