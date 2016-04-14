@@ -89,9 +89,10 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
 
+            console.log('sender', sender)
+
             // console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
 
-            // let choosenTheater = JSON.stringify(event.postback);
             let choosenTheater = event.postback.payload;
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
 
