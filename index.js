@@ -73,12 +73,13 @@ app.post('/', function (req, res) {
 
                 sender[sender_id].coords = coords;
 
+                console.log('sender', sender)
+
                 console.log('MESSAGGIO NON DI TESTO')
                 events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
 
                 setTimeout( () => {
                     services.getCinema(sender[sender_id].coords, (list_theaters) => {
-                        console.log('CALLBACK')
                         events.returnTheaters(token, sender[sender_id].id, list_theaters);
                     });
                 }, 300)
@@ -86,7 +87,7 @@ app.post('/', function (req, res) {
             }
         } else if (event.postback) {
 
-            console.log('sender', sender)
+            // console.log('sender', sender)
 
             // console.log(util.inspect(event.postback, {showHidden: true, depth: 5}));
 
