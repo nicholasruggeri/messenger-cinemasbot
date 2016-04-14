@@ -39,40 +39,53 @@ module.exports = {
             if(!error){
                 var $ = cheerio.load(html);
                 var movies = [];
-                $('.theater .desc .name a').each(function(index){
-                    var text = $(this).text()
-                    if (text == theater){
-                        var data = $(this);
-                        data.parent().parent().siblings('.showtimes').find('.movie').each(function(){
-                            var element = {};
+
+                new Promise((resolve, reject) => {
+
+
+                    $('.theater .desc .name a').each(function(index){
+                        var text = $(this).text()
+                        if (text == theater){
                             var data = $(this);
-                            var name = data.find('.name a').text();
-                            var movieTimes = data.find('.times').text();
+                            data.parent().parent().siblings('.showtimes').find('.movie').each(function(){
+                                var element = {};
+                                var data = $(this);
+                                var name = data.find('.name a').text();
+                                var movieTimes = data.find('.times').text();
 
-                            request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
+                                request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
+                                    if (!error && response.statusCode == 200) {
 
-                                    const movieResponse = JSON.parse(body);
+                                        const movieResponse = JSON.parse(body);
 
-                                    element.name = name;
-                                    element.times = movieTimes;
-                                    element.poster = movieResponse.Poster;
-                                    movies.push(element);
+                                        element.name = name;
+                                        element.times = movieTimes;
+                                        element.poster = movieResponse.Poster;
+                                        movies.push(element);
 
-                                } else {
-                                    console.log("Got an error: ", error, ", status code: ", response.statusCode);
-                                }
+                                    } else {
+                                        console.log("Got an error: ", error, ", status code: ", response.statusCode);
+                                    }
+                                });
                             });
-                        }).promise().done( function(){
-                            console.log('DONE')
-                        } );
+                        }
+                    });
+
+
+                }).then(() => {
+
+                    console.log('THEN')
+                    if (typeof callback == "function"){
+                        return callback(movies);
+                    } else {
+                        return movies;
                     }
-                });
-                if (typeof callback == "function"){
-                    return callback(movies);
-                } else {
-                    return movies;
-                }
+
+                }).catch((response) => {
+                    console.log('error', response)
+                })
+
+
             } else {
                 console.log("ERROR GETMOVIES", err); return;
             }
