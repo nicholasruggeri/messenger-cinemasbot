@@ -46,12 +46,13 @@ app.post('/', function (req, res) {
                     case 'hello':
                     case 'hi':
                     case 'ciao':
-                        events.sendTextMessage(token, sender, "Hello :)");
+                        events.sendTextMessage(token, sender, event.message.text + ":)");
                         break;
 
                     case 'help':
                     case 'aiuto':
                         events.sendTextMessage(token, sender, "Help command");
+                        break;
 
                     default:
                         events.sendTextMessage(token, sender, "Ehy, send your location.");
