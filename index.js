@@ -46,7 +46,7 @@ app.post('/', function (req, res) {
                     case 'hello':
                     case 'hi':
                     case 'ciao':
-                        events.sendTextMessage(token, sender, event.message.text + ":)");
+                        events.sendTextMessage(token, sender, event.message.text + " :)");
                         break;
 
                     case 'help':
