@@ -5,11 +5,11 @@ var request = require('request'),
 
 module.exports = {
 
-    getCinema: function(location, callback){
+    getCinema: (location, callback) => {
 
         let googleUrl = 'http://www.google.com/movies?near='+location;
 
-        request(googleUrl, function(error, response, html){
+        request(googleUrl, (error, response, html) => {
 
             if(!error){
 
@@ -17,7 +17,7 @@ module.exports = {
                     list_theaters = [],
                     single_theater = $('.theater .desc .name a');
 
-                single_theater.each(function(){
+                single_theater.each(() =>{
 
                     let theater_name = $(this).text();
                     list_theaters.push(theater_name);
@@ -35,13 +35,13 @@ module.exports = {
         });
     },
 
-    getMovies: function(location, theater, callback){
+    getMovies: (location, theater, callback) => {
 
         return new Promise((resolve, reject) => {
 
             let googleUrl = `http://www.google.com/movies?near=${location}`;
 
-            request(googleUrl, function(error, response, html){
+            request(googleUrl, (error, response, html) => {
 
                 if(!error){
 
@@ -49,7 +49,7 @@ module.exports = {
                         movies = [],
                         movies_promise = [];
 
-                    $('.theater .desc .name a').each(function(){
+                    $('.theater .desc .name a').each(() => {
 
                         var text = $(this).text()
 
@@ -66,7 +66,7 @@ module.exports = {
 
                                 movies_promise.push(new Promise((resolve, reject) => {
 
-                                    request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
+                                    request(`http://www.omdbapi.com/?t=${name}&r=json`, (error, response, body) => {
                                         if (!error && response.statusCode == 200) {
 
                                             const movieResponse = JSON.parse(body);
