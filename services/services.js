@@ -51,9 +51,7 @@ module.exports = {
 
                     $('.theater .desc .name a').each(function(){
 
-                        var text = $(this).text()
-
-                        if (text == theater){
+                        if ($(this).text() == theater){
 
                             var data = $(this);
 
