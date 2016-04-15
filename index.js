@@ -36,6 +36,8 @@ app.post('/', function (req, res) {
 
         if (event.message) {
 
+            console.log(util.inspect(event.message, {showHidden: false, depth: 5}));
+
             if (event.message.text){
 
                 sender[sender_id] = {
@@ -64,11 +66,39 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                console.log(util.inspect(event.message, {showHidden: false, depth: 5}));
+                console.log('event:',event.message.attachments[0].type)
 
-                console.log(event.message.attachments[0].type)
+                if (event.message.attachments[0].type == 'location'){
 
-                if (event.message.sticker_id) {
+                    let lat    = event.message.attachments[0].payload.coordinates.lat,
+                        long   = event.message.attachments[0].payload.coordinates.long,
+                        coords = `${lat},${long}`;
+
+                    sender[sender_id].coords = coords;
+
+                    console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
+
+                    events.sendTextMessage(
+                        token,
+                        sender[sender_id].id,
+                        "Great, now choose the theater you prefer."
+                    );
+
+                    setTimeout( () => {
+
+                        services.getCinema(sender[sender_id].coords, (list_theaters) => {
+
+                            events.returnTheaters(
+                                token,
+                                sender[sender_id].id,
+                                list_theaters
+                            );
+
+                        });
+
+                    }, 300)
+
+                } else {
 
                     events.sendTextMessage(
                         token,
@@ -76,36 +106,8 @@ app.post('/', function (req, res) {
                         "C'mon, send me your location :)"
                     );
 
-                } else {
-
-                    // let lat    = event.message.attachments[0].payload.coordinates.lat,
-                    //     long   = event.message.attachments[0].payload.coordinates.long,
-                    //     coords = `${lat},${long}`;
-
-                    // sender[sender_id].coords = coords;
-
-                    // console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
-
-                    // events.sendTextMessage(
-                    //     token,
-                    //     sender[sender_id].id,
-                    //     "Great, now choose the theater you prefer."
-                    // );
-
-                    // setTimeout( () => {
-
-                    //     services.getCinema(sender[sender_id].coords, (list_theaters) => {
-
-                    //         events.returnTheaters(
-                    //             token,
-                    //             sender[sender_id].id,
-                    //             list_theaters
-                    //         );
-
-                    //     });
-
-                    // }, 300)
                 }
+
             }
 
         } else if (event.postback) {
