@@ -51,20 +51,18 @@ module.exports = {
 
                     $('.theater .desc .name a').each(function(){
 
+
                         if ($(this).text() == theater){
 
-                            var data = $(this);
-
-                            data.parent().parent().siblings('.showtimes').find('.movie').each(function(){
+                            $(this).parent().parent().siblings('.showtimes').find('.movie').each(function(){
 
                                 var element = {};
-                                var data = $(this);
-                                var name = data.find('.name a').text();
-                                var movieTimes = data.find('.times').text();
+                                var name = $(this).find('.name a').text();
+                                var movieTimes = $(this).find('.times').text();
 
                                 movies_promise.push(new Promise((resolve, reject) => {
 
-                                    request('http://www.omdbapi.com/?t='+name+'&r=json', function (error, response, body) {
+                                    request(`http://www.omdbapi.com/?t=${name}&r=json`, function (error, response, body) {
                                         if (!error && response.statusCode == 200) {
 
                                             const movieResponse = JSON.parse(body);
