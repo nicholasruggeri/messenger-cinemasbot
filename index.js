@@ -64,6 +64,8 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
+                console.log(util.inspect(event.message, {showHidden: false, depth: 5}));
+
                 if (event.message.attachments.type == 'image') {
 
                     events.sendTextMessage(
@@ -101,14 +103,9 @@ app.post('/', function (req, res) {
                         });
 
                     }, 300)
-
                 }
-
-                console.log(util.inspect(event.message.attachments, {showHidden: false, depth: 5}));
-
-
-
             }
+
         } else if (event.postback) {
 
             console.log('sender', sender) // QUA NON VIENE PRESO L'OGGETTO CON LE COORDINATE
