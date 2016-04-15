@@ -46,7 +46,7 @@ module.exports = {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
                 "title": data[i],
-                "subtitle" : `Option ${i+1}`
+                "subtitle" : `Option ${i+1}`,
                 "buttons": [{
                     "type": "postback",
                     "title": "This is good",
