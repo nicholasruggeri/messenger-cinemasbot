@@ -48,7 +48,7 @@ module.exports = {
                 "title": data[i],
                 "buttons": [{
                     "type": "postback",
-                    "title": "👍",
+                    "title": "This is 👍",
                     "payload": data[i]
                 }],
             })
