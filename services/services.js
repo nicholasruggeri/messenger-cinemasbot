@@ -51,14 +51,13 @@ module.exports = {
 
                     $('.theater .desc .name a').each(function(){
 
-
                         if ($(this).text() == theater){
 
                             $(this).parent().parent().siblings('.showtimes').find('.movie').each(function(){
 
-                                var element = {};
-                                var name = $(this).find('.name a').text();
-                                var movieTimes = $(this).find('.times').text();
+                                let element = {},
+                                    name = $(this).find('.name a').text(),
+                                    movieTimes = $(this).find('.times').text();
 
                                 movies_promise.push(new Promise((resolve, reject) => {
 
@@ -85,7 +84,9 @@ module.exports = {
                                     console.log('img loaded')
 
                                 }).catch((response) => {
+
                                     console.log('error', response)
+
                                 }));
 
                             });
@@ -93,8 +94,10 @@ module.exports = {
                         }
                     });
 
-                    Promise.all(movies_promise).then(()=>{
+                    Promise.all(movies_promise).then(() => {
+
                         resolve(movies)
+
                     })
 
                 } else {
