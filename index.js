@@ -64,21 +64,36 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                let lat    = event.message.attachments[0].payload.coordinates.lat,
-                    long   = event.message.attachments[0].payload.coordinates.long,
-                    coords = `${lat},${long}`;
+                console.log(util.inspect(event.message.attachments, {showHidden: false, depth: 5}));
 
-                sender[sender_id].coords = coords;
 
-                console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
+                // let lat    = event.message.attachments[0].payload.coordinates.lat,
+                //     long   = event.message.attachments[0].payload.coordinates.long,
+                //     coords = `${lat},${long}`;
 
-                events.sendTextMessage(token, sender[sender_id].id, "Great, now choose the theater you prefer.");
+                // sender[sender_id].coords = coords;
 
-                setTimeout( () => {
-                    services.getCinema(sender[sender_id].coords, (list_theaters) => {
-                        events.returnTheaters(token, sender[sender_id].id, list_theaters);
-                    });
-                }, 300)
+                // console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
+
+                // events.sendTextMessage(
+                //     token,
+                //     sender[sender_id].id,
+                //     "Great, now choose the theater you prefer."
+                // );
+
+                // setTimeout( () => {
+
+                //     services.getCinema(sender[sender_id].coords, (list_theaters) => {
+
+                //         events.returnTheaters(
+                //             token,
+                //             sender[sender_id].id,
+                //             list_theaters
+                //         );
+
+                //     });
+
+                // }, 300)
 
             }
         } else if (event.postback) {
@@ -87,7 +102,6 @@ app.post('/', function (req, res) {
 
             let choosenTheater = event.postback.payload;
             events.sendTextMessage(token, sender[sender_id].id, "Ok, just a moment...");
-
 
             setTimeout(() => {
 
