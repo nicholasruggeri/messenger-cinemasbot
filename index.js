@@ -64,36 +64,49 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
+                if (event.message.attachments.type == 'image') {
+
+                    events.sendTextMessage(
+                        token,
+                        sender[sender_id].id,
+                        "C'mon, send me your location :)"
+                    );
+
+                } else {
+
+                    let lat    = event.message.attachments[0].payload.coordinates.lat,
+                        long   = event.message.attachments[0].payload.coordinates.long,
+                        coords = `${lat},${long}`;
+
+                    sender[sender_id].coords = coords;
+
+                    console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
+
+                    events.sendTextMessage(
+                        token,
+                        sender[sender_id].id,
+                        "Great, now choose the theater you prefer."
+                    );
+
+                    setTimeout( () => {
+
+                        services.getCinema(sender[sender_id].coords, (list_theaters) => {
+
+                            events.returnTheaters(
+                                token,
+                                sender[sender_id].id,
+                                list_theaters
+                            );
+
+                        });
+
+                    }, 300)
+
+                }
+
                 console.log(util.inspect(event.message.attachments, {showHidden: false, depth: 5}));
 
 
-                // let lat    = event.message.attachments[0].payload.coordinates.lat,
-                //     long   = event.message.attachments[0].payload.coordinates.long,
-                //     coords = `${lat},${long}`;
-
-                // sender[sender_id].coords = coords;
-
-                // console.log('sender', sender) // QUA VEDO LE COORDINATE NELL'OGGETTO
-
-                // events.sendTextMessage(
-                //     token,
-                //     sender[sender_id].id,
-                //     "Great, now choose the theater you prefer."
-                // );
-
-                // setTimeout( () => {
-
-                //     services.getCinema(sender[sender_id].coords, (list_theaters) => {
-
-                //         events.returnTheaters(
-                //             token,
-                //             sender[sender_id].id,
-                //             list_theaters
-                //         );
-
-                //     });
-
-                // }, 300)
 
             }
         } else if (event.postback) {
