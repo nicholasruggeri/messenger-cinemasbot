@@ -45,10 +45,10 @@ module.exports = {
         for (let i=0; i<data.length; i++) {
             console.log(data[i])
             messageData.attachment.payload.elements.push({
-                "title": 'Theater '+[i+1],
+                "title": data[i],
                 "buttons": [{
                     "type": "postback",
-                    "title": data[i],
+                    "title": "this is good",
                     "payload": data[i]
                 }],
             })
