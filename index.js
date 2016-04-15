@@ -66,7 +66,9 @@ app.post('/', function (req, res) {
 
                 console.log(util.inspect(event.message, {showHidden: false, depth: 5}));
 
-                if (event.message.attachments.type == 'image') {
+                console.log(event.message.attachments[0].type)
+
+                if (event.message.sticker_id) {
 
                     events.sendTextMessage(
                         token,
