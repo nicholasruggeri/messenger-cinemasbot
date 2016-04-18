@@ -98,14 +98,6 @@ app.post('/', function (req, res) {
 
                     }, 300)
 
-                } else {
-
-                    events.sendTextMessage(
-                        token,
-                        sender[sender_id].id,
-                        "C'mon, send me your location :)"
-                    );
-
                 }
 
             }
