@@ -63,10 +63,10 @@ app.post('/', function (req, res) {
                         events.sendTextMessage(token, sender[sender_id].id, "Uhm? Roar!");
                         setTimeout(()=>{
                             events.sendTextMessage(token, sender[sender_id].id, "Ehy! You woke me up!");
-                        }, 100);
+                        }, 300);
                         setTimeout(()=>{
                             events.sendTextMessage(token, sender[sender_id].id, "Ok... I forgive you. Send me your location to begin searching.");
-                        }, 200)
+                        }, 800)
 
                 }
 
