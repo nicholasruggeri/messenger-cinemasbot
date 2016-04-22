@@ -51,7 +51,7 @@ app.post('/', function (req, res) {
                     case 'hello':
                     case 'hi':
                     case 'ciao':
-                        events.sendTextMessage(token, sender[sender_id].id, `${event.message.text} :)`);
+                        events.sendTextMessage(token, sender[sender_id].id, `${event.message.text} 🦁`);
                         break;
 
                     case 'help':
@@ -60,7 +60,7 @@ app.post('/', function (req, res) {
                         break;
 
                     default:
-                        events.sendTextMessage(token, sender[sender_id].id, "Ehy, send your location.");
+                        events.sendTextMessage(token, sender[sender_id].id, "Roar! Send me your location!");
 
                 }
 
