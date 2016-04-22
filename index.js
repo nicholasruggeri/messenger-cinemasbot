@@ -61,8 +61,12 @@ app.post('/', function (req, res) {
 
                     default:
                         events.sendTextMessage(token, sender[sender_id].id, "Uhm? Roar!");
-                        events.sendTextMessage(token, sender[sender_id].id, "Ehy! You woke me up!");
-                        events.sendTextMessage(token, sender[sender_id].id, "Ok... I forgive you. Send me your location to begin searching.");
+                        setTimeout(()=>{
+                            events.sendTextMessage(token, sender[sender_id].id, "Ehy! You woke me up!");
+                        }, 100);
+                        setTimeout(()=>{
+                            events.sendTextMessage(token, sender[sender_id].id, "Ok... I forgive you. Send me your location to begin searching.");
+                        }, 200)
 
                 }
 
