@@ -44,7 +44,7 @@ module.exports = {
             } else {
                 if (body.data[0]){
                     for (let i=0; i< body.data[0].movies.length; i++){
-                        listMovies.push([body.data[0].movies[i].title])
+                        listMovies.push([body.data[0].movies[i]])
                     }
                     resolve(listMovies)
                 } else {
