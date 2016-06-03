@@ -75,6 +75,18 @@ app.post('/', function (req, res) {
                             events.sendTextMessage(token, user_session[sender_id].id, `${event.message.text}`);
                             break;
 
+                        case 'help':
+                        case 'aiuto':
+                            events.sendTextMessage(token, user_session[sender_id].id, "Just give me your location, if I can find out theaterrrrs here in the savannah, I can catch them everywhere.");
+                            break;
+
+                        default:
+
+                            events.sendTextMessage(token, user_session[sender_id].id, "Have you ever hearrrrd about a lion known for its patience?");
+                            setTimeout(()=>{
+                                events.sendTextMessage(token, user_session[sender_id].id, "Me neitherrr.");
+                            }, 2000);
+
 
                     }
 
