@@ -148,8 +148,6 @@ app.post('/', function (req, res) {
 
         } else if (event.postback) {
 
-            console.log('enter postback')
-
             switch(user_session[sender_id].status){
                 case STATUSES.THEATERS_RECEIVED:
 
@@ -165,21 +163,7 @@ app.post('/', function (req, res) {
 
                     }).then((list_movies) => {
 
-                        let round = Math.round(list_movies.length/10);
-
-                        if (list_movies.length > 10){
-
-                            for (let i=0; i < round; i++) {
-
-                                events.returnMovies(token, sender[sender_id].id, list_movies.slice(i*10,(i+1)*10));
-
-                            }
-
-                        } else {
-
-                            events.returnMovies(token, sender[sender_id].id, list_movies);
-
-                        }
+                        console.log('list_movies', list_movies)
 
                     });
                     break;
