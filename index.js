@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-    console.log(util.inspect(req.body, {showHidden: false, depth: 5}));
+    // console.log(util.inspect(req.body, {showHidden: false, depth: 5}));
 
 
     let messaging_events = req.body.entry[0].messaging;
@@ -123,6 +123,7 @@ app.post('/', function (req, res) {
                 new Promise((resolve, reject) => {
 
                     console.log('ENTER PROMISE', user_session[from_id].location)
+                    console.log(user_session[from_id].location)
 
                     services.getTheaters(user_session[from_id].location, resolve, reject)
 
