@@ -30,6 +30,8 @@ module.exports = {
 
     getMovies: (location, theater, resolve, reject) => {
 
+        console.log('enter SERVICE getMovies')
+
         let endPoint     = `${baseUrl}/?near=${location}&cinema_name=${theater}`,
             listMovies = [];
 

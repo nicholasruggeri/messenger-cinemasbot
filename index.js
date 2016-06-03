@@ -148,11 +148,18 @@ app.post('/', function (req, res) {
 
         } else if (event.postback) {
 
+            console.log('enter postback')
+
             switch(user_session[sender_id].status){
                 case STATUSES.THEATERS_RECEIVED:
 
                     user_session[sender_id].theater = event.postback.payload;
+
+                    console.log('enter postback', user_session[sender_id].theater)
+
                     new Promise((resolve, reject) => {
+
+                        console.log('enter promise')
 
                         services.getMovies(user_session[sender_id].location, user_message, resolve, reject)
 

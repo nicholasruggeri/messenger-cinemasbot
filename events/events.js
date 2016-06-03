@@ -33,8 +33,6 @@ module.exports = {
 
     returnTheaters: (token, sender, data) => {
 
-        console.log('DATA', data)
-
         let messageData = {
             "attachment": {
                 "type": "template",
@@ -92,7 +90,6 @@ module.exports = {
         };
 
         for (let i=0; i<data.length; i++) {
-            console.log(data[i])
             messageData.attachment.payload.elements.push({
                 "title" : data[i].name,
                 "subtitle" : data[i].times,
