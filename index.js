@@ -168,7 +168,7 @@ app.post('/', function (req, res) {
                         events.returnMovies(
                             token,
                             user_session[sender_id].id,
-                            list_movies
+                            _.flatten(list_movies)
                         );
 
                     });
