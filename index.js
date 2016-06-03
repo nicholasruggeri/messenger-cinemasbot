@@ -72,23 +72,72 @@ app.post('/', function (req, res) {
                         case 'hello':
                         case 'hi':
                         case 'ciao':
-                            events.sendTextMessage(token, user_session[sender_id].id, `${event.message.text}`);
+                            events.sendTextMessage(
+                                token,
+                                user_session[sender_id].id,
+                                `${event.message.text}`
+                            );
                             break;
 
                         case 'help':
                         case 'aiuto':
-                            events.sendTextMessage(token, user_session[sender_id].id, "Just give me your location, if I can find out theaterrrrs here in the savannah, I can catch them everywhere.");
+                            events.sendTextMessage(
+                                token,
+                                user_session[sender_id].id,
+                                "Just give me your location, if I can find out theaterrrrs here in the savannah, I can catch them everywhere."
+                            );
                             break;
 
                         default:
 
-                            events.sendTextMessage(token, user_session[sender_id].id, "Have you ever hearrrrd about a lion known for its patience?");
+                            events.sendTextMessage(
+                                token,
+                                user_session[sender_id].id,
+                                "Have you ever hearrrrd about a lion known for its patience?"
+                            );
                             setTimeout(()=>{
-                                events.sendTextMessage(token, user_session[sender_id].id, "Me neitherrr.");
+                                events.sendTextMessage(
+                                    token,
+                                    user_session[sender_id].id,
+                                    "Me neitherrr."
+                                );
                             }, 2000);
 
 
                     }
+
+            } else if (event.message.attachments) {
+
+                console.log('event:',event.message.attachments[0].type)
+
+                let lat    = event.message.attachments[0].payload.coordinates.lat,
+                    long   = event.message.attachments[0].payload.coordinates.long,
+                    coords = `${lat},${long}`;
+
+                user_session[sender_id].location = coords;
+
+                events.sendTextMessage(
+                    token,
+                    user_session[sender_id].id,
+                    "Fangtastic! I’m hunting down some theaterrrrs for you."
+                );
+
+                new Promise((resolve, reject) => {
+
+                    services.getTheaters(user_session[from_id].location, resolve, reject)
+
+                }).then((list_theaters) => {
+
+                    if (data.length > 0){
+                        events.returnTheaters(
+                            token,
+                            user_session[sender_id].id,
+                            list_theaters
+                        );
+                        user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
+                    }
+
+                })
 
             }
 
