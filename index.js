@@ -113,9 +113,8 @@ app.post('/', function (req, res) {
                     long   = event.message.attachments[0].payload.coordinates.long,
                     coords = `${lat},${long}`;
 
+                user_session[from_id].status = STATUSES.INITIAL;
                 user_session[sender_id].location = coords;
-
-                console.log('user_location', user_session[sender_id].location)
 
                 events.sendTextMessage(
                     token,
@@ -123,23 +122,57 @@ app.post('/', function (req, res) {
                     "Fangtastic! I’m hunting down some theaterrrrs for you."
                 );
 
-
                 new Promise((resolve, reject) => {
-                    console.log('ENTER PROMISE')
                     services.getTheaters(user_session[sender_id].location, resolve, reject)
                 }).then((list_theaters) => {
 
-                    events.returnTheaters(
-                        token,
-                        user_session[sender_id].id,
-                        _.flatten(list_theaters)
-                    );
+                    if (list_theaters.length > 0)
+                        user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
+                        events.returnTheaters(
+                            token,
+                            user_session[sender_id].id,
+                            _.flatten(list_theaters)
+                        );
+                    else {
+                        user_session[from_id].status = STATUSES.INITIAL;
+                        events.sendTextMessage(
+                            token,
+                            user_session[sender_id].id,
+                            "TEATRI NON TROVATI"
+                        );
+                    }
 
                 })
 
             }
 
         } else if (event.postback) {
+
+            switch(user_session[from_id].status){
+                case STATUSES.THEATERS_RECEIVED:
+
+                    user_session[from_id].theater = event.postback.payload;
+                    new Promise((resolve, reject) => {
+
+                        services.getMovies(user_session[from_id].location, user_message, resolve, reject)
+
+                    }).then((theaterData) => {
+
+                        if (typeof theaterData == 'object'){
+                            user_session[from_id].status = STATUSES.MOVIES_RECEIVED;
+
+                            new Promise((resolve, reject) => {
+                                services.getMovies(user_session[sender_id].location, user_session[from_id].theater, resolve, reject)
+                            }).then((list_movies) => {
+
+                                console.log('list_movies', list_movies)
+
+                            })
+                        }
+
+                    });
+                    break;
+            }
 
         }
 
