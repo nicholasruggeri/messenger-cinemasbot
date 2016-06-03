@@ -122,22 +122,24 @@ app.post('/', function (req, res) {
                     "Fangtastic! I’m hunting down some theaterrrrs for you."
                 );
 
-                new Promise((resolve, reject) => {
+                console.log(user_session[sender_id].location);
 
-                    services.getTheaters(user_session[from_id].location, resolve, reject)
+                // new Promise((resolve, reject) => {
 
-                }).then((list_theaters) => {
+                //     services.getTheaters(user_session[from_id].location, resolve, reject)
 
-                    if (data.length > 0){
-                        events.returnTheaters(
-                            token,
-                            user_session[sender_id].id,
-                            list_theaters
-                        );
-                        user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
-                    }
+                // }).then((list_theaters) => {
 
-                })
+                //     if (data.length > 0){
+                //         events.returnTheaters(
+                //             token,
+                //             user_session[sender_id].id,
+                //             list_theaters
+                //         );
+                //         user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
+                //     }
+
+                // })
 
             }
 
