@@ -161,20 +161,24 @@ app.post('/', function (req, res) {
 
                         console.log('enter promise')
 
-                        services.getMovies(user_session[sender_id].location, user_message, resolve, reject)
+                        services.getMovies(user_session[sender_id].location, user_session[sender_id].theater, resolve, reject)
 
-                    }).then((theaterData) => {
+                    }).then((list_movies) => {
 
-                        if (typeof theaterData == 'object'){
-                            user_session[sender_id].status = STATUSES.MOVIES_RECEIVED;
+                        let round = Math.round(list_movies.length/10);
 
-                            new Promise((resolve, reject) => {
-                                services.getMovies(user_session[sender_id].location, user_session[sender_id].theater, resolve, reject)
-                            }).then((list_movies) => {
+                        if (list_movies.length > 10){
 
-                                console.log('list_movies', list_movies)
+                            for (let i=0; i < round; i++) {
 
-                            })
+                                events.returnMovies(token, sender[sender_id].id, list_movies.slice(i*10,(i+1)*10));
+
+                            }
+
+                        } else {
+
+                            events.returnMovies(token, sender[sender_id].id, list_movies);
+
                         }
 
                     });
