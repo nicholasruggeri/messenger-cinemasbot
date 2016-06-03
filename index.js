@@ -127,7 +127,13 @@ app.post('/', function (req, res) {
                     console.log('ENTER PROMISE')
                     services.getTheaters(user_session[sender_id].location, resolve, reject)
                 }).then((data) => {
-                    console.log('DATA', data)
+
+                    events.returnTheaters(
+                        token,
+                        user_session[sender_id].id,
+                        list_theaters
+                    );
+
                 })
 
             }
