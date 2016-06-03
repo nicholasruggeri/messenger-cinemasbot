@@ -122,6 +122,8 @@ app.post('/', function (req, res) {
                     "Fangtastic! I’m hunting down some theaterrrrs for you."
                 );
 
+                console.log('GAYYYYY')
+
                 new Promise((resolve, reject) => {
 
                     console.log('ENTER PROMISE', user_session[from_id].location)
@@ -133,16 +135,6 @@ app.post('/', function (req, res) {
 
                     console.log('EXIT PROMISE')
                     console.log('list_theaters', list_theaters)
-
-
-                    // if (data.length > 0){
-                    //     events.returnTheaters(
-                    //         token,
-                    //         user_session[sender_id].id,
-                    //         list_theaters
-                    //     );
-                    //     user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
-                    // }
 
                 })
 
