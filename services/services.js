@@ -1,113 +1,79 @@
 "use strict";
 
-var request = require('request'),
-    cheerio = require('cheerio');
+let request = require('request');
+let baseUrl = "https://cinemasbot-api.herokuapp.com";
 
 module.exports = {
 
-    getCinema: function(location, callback){
+    getTheaters: (location, resolve, reject) => {
 
-        let googleUrl = `http://www.google.com/movies?near=${location}`;
+        let endPoint     = `${baseUrl}/?near=${location}`,
+            listTheaters = [];
 
-        request(googleUrl, function(error, response, html){
-
-            if(!error){
-
-                let $ = cheerio.load(html),
-                    list_theaters = [],
-                    single_theater = $('.theater .desc .name a');
-
-                single_theater.each(function(){
-
-                    let theater_name = $(this).text();
-                    list_theaters.push(theater_name);
-
-                });
-
-                if (typeof callback == "function")
-                    return callback(list_theaters);
-                else
-                    return list_theaters;
-
+        request({
+            url: endPoint,
+            json: true
+        }, (error, response, body) => {
+            if(error) {
+                console.log(error);
             } else {
-                console.log("ERROR GETCINEMA", err); return;
+                for (let i=0; i< body.data.length; i++){
+                    listTheaters.push([body.data[i].theater_name])
+                }
+                resolve(listTheaters)
             }
         });
+
     },
 
-    getMovies: function(location, theater, callback){
+    getMovies: (location, theater, resolve, reject) => {
 
-        return new Promise((resolve, reject) => {
+        let endPoint     = `${baseUrl}/?near=${location}&cinema_name=${theater}`,
+            listMovies = [];
 
-            let googleUrl = `http://www.google.com/movies?near=${location}`;
-
-            request(googleUrl, function(error, response, html){
-
-                if(!error){
-
-                    let $ = cheerio.load(html),
-                        movies = [],
-                        movies_promise = [];
-
-                    $('.theater .desc .name a').each(function(){
-
-                        if ($(this).text() == theater){
-
-                            $(this).parent().parent().siblings('.showtimes').find('.movie').each(function(){
-
-                                let element = {},
-                                    name = $(this).find('.name a').text(),
-                                    movieTimes = $(this).find('.times').text();
-
-                                movies_promise.push(new Promise((resolve, reject) => {
-
-                                    request(`http://www.omdbapi.com/?t=${name}&r=json`, function (error, response, body) {
-                                        if (!error && response.statusCode == 200) {
-
-                                            const movieResponse = JSON.parse(body);
-
-                                            element.name = name;
-                                            element.times = movieTimes;
-                                            element.poster = movieResponse.Poster;
-                                            movies.push(element);
-
-                                        } else {
-                                            console.log("Got an error: ", error, ", status code: ", response.statusCode);
-                                        }
-
-                                        resolve()
-
-                                    });
-
-                                }).then(() => {
-
-                                    console.log('img loaded')
-
-                                }).catch((response) => {
-
-                                    console.log('error', response)
-
-                                }));
-
-                            });
-
-                        }
-                    });
-
-                    Promise.all(movies_promise).then(() => {
-
-                        resolve(movies)
-
-                    })
-
+        request({
+            url: endPoint,
+            json: true
+        }, (error, response, body) => {
+            if(error) {
+                console.log(error);
+            } else {
+                if (body.data[0]){
+                    for (let i=0; i< body.data[0].movies.length; i++){
+                        listMovies.push([body.data[0].movies[i].title])
+                    }
+                    resolve(listMovies)
                 } else {
-                    console.log("ERROR GETMOVIES", err); return;
+                    resolve('movie not found')
                 }
-            });
+            }
+        });
 
-        })
+    },
+
+    getMovieInfo: (location, theater, movie, resolve, reject) => {
+
+        let endPoint  = `${baseUrl}/?near=${location}&cinema_name=${theater}&movie_name=${movie}`,
+            movieInfo = {};
+
+        request({
+            url: endPoint,
+            json: true
+        }, (error, response, body) => {
+            if(error) {
+                console.log(error);
+            } else {
+                if (body.data[0]){
+                    movieInfo.info = body.data[0].movies[0].movie_info;
+                    movieInfo.times = body.data[0].movies[0].times;
+                    movieInfo.title = body.data[0].movies[0].title;
+                    resolve(movieInfo);
+                } else {
+                    resolve('movie not found')
+                }
+            }
+        });
 
     }
-
 
 }

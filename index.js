@@ -3,14 +3,27 @@
 let util        = require('util'),
     express     = require('express'),
     bodyParser  = require('body-parser'),
-    request     = require('request'),
     events      = require('./events/events'),
     services    = require('./services/services');
 
-let app   = express(),
-    token = process.env.FB_TOKEN;
 
-let sender = {};
+var app         = express(),
+    token       = process.env.FB_TOKEN,
+    qs, user_session = {};
+
+const STATUSES = {
+    INITIAL: 1,
+    THEATERS_RECEIVED: 2,
+    MOVIES_RECEIVED: 3
+};
+
+let removeData = (id) => {
+    delete user_session[id]
+}
+
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,6 +39,8 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+
+    console.log(util.inspect(req, {showHidden: false, depth: 5}));
 
     let messaging_events = req.body.entry[0].messaging;
 
