@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
-    console.log(util.inspect(req, {showHidden: false, depth: 5}));
+    console.log(util.inspect(req.body, {showHidden: false, depth: 5}));
 
     let messaging_events = req.body.entry[0].messaging;
 
