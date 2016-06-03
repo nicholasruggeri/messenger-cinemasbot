@@ -108,8 +108,6 @@ app.post('/', function (req, res) {
 
             } else if (event.message.attachments) {
 
-                console.log('event:',event.message.attachments[0].type)
-
                 let lat    = event.message.attachments[0].payload.coordinates.lat,
                     long   = event.message.attachments[0].payload.coordinates.long,
                     coords = `${lat},${long}`;
@@ -124,7 +122,7 @@ app.post('/', function (req, res) {
 
                 new Promise((resolve, reject) => {
 
-                    console.log('ENTER PROMISE')
+                    console.log('ENTER PROMISE,' user_session[from_id].location)
 
                     services.getTheaters(user_session[from_id].location, resolve, reject)
 
