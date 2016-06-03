@@ -163,25 +163,15 @@ app.post('/', function (req, res) {
 
                     }).then((data) => {
 
-                        var list_movies = _.flatten(data);
+                        var list_movies = _.flatten(data)
 
                         console.log('list_movies', list_movies)
 
-                        if (list_movies.length > 10){
-
-                            for (let i=0; i < round; i++) {
-
-                                events.returnMovies(
-                                    token,
-                                    user_session[sender_id].id,
-                                    list_movies.slice(i*10,(i+1)*10)
-                                );
-
-                            }
-
-                        } else {
-                            events.returnMovies(token, sender[sender_id].id, list_movies);
-                        }
+                        events.returnMovies(
+                            token,
+                            user_session[sender_id].id,
+                            list_movies
+                        );
 
                     });
                     break;
