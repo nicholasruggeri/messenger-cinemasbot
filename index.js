@@ -46,7 +46,7 @@ app.post('/', function (req, res) {
 
     if (!user_session[from_id]){
         user_session[from_id] = {
-            // chat_id: req.body.message.chat.id,
+            id: from_id,
             location: undefined,
             theater: undefined,
             movie: undefined,
