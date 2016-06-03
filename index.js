@@ -42,23 +42,24 @@ app.post('/', function (req, res) {
 
     console.log(util.inspect(req.body, {showHidden: false, depth: 5}));
 
-    var from_id = req.body.entry[0].id;
-
-    if (!user_session[from_id]){
-        user_session[from_id] = {
-            id: from_id,
-            location: undefined,
-            theater: undefined,
-            movie: undefined,
-            status: STATUSES.INITIAL
-        }
-    }
 
     let messaging_events = req.body.entry[0].messaging;
+
 
     for (let i = 0; i < messaging_events.length; i++) {
 
         var event = req.body.entry[0].messaging[i];
+        var sender_id = event.sender.id;
+
+        if (!user_session[sender_id]){
+            user_session[sender_id] = {
+                id: sender_id,
+                location: undefined,
+                theater: undefined,
+                movie: undefined,
+                status: STATUSES.INITIAL
+            }
+        }
 
         if (event.message) {
 
@@ -71,7 +72,7 @@ app.post('/', function (req, res) {
                         case 'hello':
                         case 'hi':
                         case 'ciao':
-                            events.sendTextMessage(token, user_session[from_id].id, `${event.message.text}`);
+                            events.sendTextMessage(token, user_session[sender_id].id, `${event.message.text}`);
                             break;
 
 
