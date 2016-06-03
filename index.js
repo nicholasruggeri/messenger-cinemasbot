@@ -126,14 +126,14 @@ app.post('/', function (req, res) {
                     services.getTheaters(user_session[sender_id].location, resolve, reject)
                 }).then((list_theaters) => {
 
-                    if (list_theaters.length > 0)
+                    if (list_theaters.length > 0){
                         user_session[from_id].status = STATUSES.THEATERS_RECEIVED;
                         events.returnTheaters(
                             token,
                             user_session[sender_id].id,
                             _.flatten(list_theaters)
                         );
-                    else {
+                    } else {
                         user_session[from_id].status = STATUSES.INITIAL;
                         events.sendTextMessage(
                             token,
