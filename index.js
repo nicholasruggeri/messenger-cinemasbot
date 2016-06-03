@@ -122,7 +122,7 @@ app.post('/', function (req, res) {
 
                 new Promise((resolve, reject) => {
 
-                    console.log('ENTER PROMISE,' user_session[from_id].location)
+                    console.log('ENTER PROMISE', user_session[from_id].location)
 
                     services.getTheaters(user_session[from_id].location, resolve, reject)
 
