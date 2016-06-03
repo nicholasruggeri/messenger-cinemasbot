@@ -2,6 +2,7 @@
 
 let util        = require('util'),
     express     = require('express'),
+    _           = require('underscore'),
     bodyParser  = require('body-parser'),
     events      = require('./events/events'),
     services    = require('./services/services');
@@ -133,7 +134,7 @@ app.post('/', function (req, res) {
                     events.returnTheaters(
                         token,
                         user_session[sender_id].id,
-                        list_theaters
+                        _.flatten(list_theaters)
                     );
 
                 })
