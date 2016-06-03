@@ -91,9 +91,9 @@ module.exports = {
 
         for (let i=0; i<data.length; i++) {
             messageData.attachment.payload.elements.push({
-                "title" : data[i].name,
-                "subtitle" : data[i].times,
-                "image_url" : data[i].poster
+                "title" : data[i].title,
+                "subtitle" : data[i].times
+                // "image_url" : data[i].poster
             })
         }
 

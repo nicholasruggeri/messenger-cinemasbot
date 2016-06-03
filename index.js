@@ -163,8 +163,13 @@ app.post('/', function (req, res) {
 
                     }).then((list_movies) => {
 
-
                         console.log('list_movies', list_movies)
+
+                        events.returnMovies(
+                            token,
+                            user_session[sender_id].id,
+                            list_movies
+                        );
 
                     });
                     break;
