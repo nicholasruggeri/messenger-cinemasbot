@@ -122,19 +122,11 @@ app.post('/', function (req, res) {
                     "Fangtastic! I’m hunting down some theaterrrrs for you."
                 );
 
-                console.log('GAYYYYY')
 
                 new Promise((resolve, reject) => {
-
-                    console.log('ENTER PROMISE', user_session[from_id].location)
-                    console.log(user_session[from_id].location)
-
-                    services.getTheaters(user_session[from_id].location, resolve, reject)
-
-                }).then((list_theaters) => {
-
-                    console.log('EXIT PROMISE')
-                    console.log('list_theaters', list_theaters)
+                    console.log('ENTER PROMISE')
+                    services.getTheaters(user_session[sender_id].location, resolve, reject)
+                }).then((data) => {
 
                 })
 
