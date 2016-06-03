@@ -54,28 +54,36 @@ app.post('/', function (req, res) {
         }
     }
 
-    if (event.message) {
+    for (let i = 0; i < messaging_events.length; i++) {
 
-        if (event.message.text){
+        var event = req.body.entry[0].messaging[i];
 
-            let user_text = event.message.text.toLowerCase();
+        if (event.message) {
 
-            switch(user_text) {
+            if (event.message.text){
 
-                    case 'hello':
-                    case 'hi':
-                    case 'ciao':
-                        events.sendTextMessage(token, user_session[from_id].id, `${event.message.text}`);
-                        break;
+                let user_text = event.message.text.toLowerCase();
+
+                switch(user_text) {
+
+                        case 'hello':
+                        case 'hi':
+                        case 'ciao':
+                            events.sendTextMessage(token, user_session[from_id].id, `${event.message.text}`);
+                            break;
 
 
-                }
+                    }
+
+            }
+
+        } else if (event.postback) {
 
         }
 
-    } else if (event.postback) {
 
     }
+
 
 
     res.sendStatus(200);
