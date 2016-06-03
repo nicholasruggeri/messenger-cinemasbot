@@ -122,15 +122,17 @@ app.post('/', function (req, res) {
                     "Fangtastic! I’m hunting down some theaterrrrs for you."
                 );
 
-                console.log('location',user_session[sender_id].location);
-
                 new Promise((resolve, reject) => {
+
+                    console.log('ENTER PROMISE')
 
                     services.getTheaters(user_session[from_id].location, resolve, reject)
 
                 }).then((list_theaters) => {
 
-                    console.log('list_theaters', list_theaters);
+                    console.log('EXIT PROMISE')
+                    console.log('list_theaters', list_theaters)
+
 
                     // if (data.length > 0){
                     //     events.returnTheaters(

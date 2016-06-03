@@ -7,6 +7,8 @@ module.exports = {
 
     getTheaters: (location, resolve, reject) => {
 
+        console.log('ENTER SERVICE LOCATION', location)
+
         let endPoint     = `${baseUrl}/?near=${location}`,
             listTheaters = [];
 
@@ -20,6 +22,7 @@ module.exports = {
                 for (let i=0; i< body.data.length; i++){
                     listTheaters.push([body.data[i].theater_name])
                 }
+                console.log('list_theaters SERVICE', list_theaters)
                 resolve(listTheaters)
             }
         });
